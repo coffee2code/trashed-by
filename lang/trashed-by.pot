@@ -1,0 +1,38 @@
+# Translation of the WordPress plugin Trashed By v1.0 by Scott Reilly.
+# Copyright (C) 2014 Scott Reilly
+# This file is distributed under the same license as the Trashed By plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Trashed By 1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/trashed-by\n"
+"POT-Creation-Date: 2014-04-08 16:04:50+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#. #-#-#-#-#  trashed-by.pot (Trashed By 1.0)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: trashed-by.php:140
+msgid "Trashed By"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://coffee2code.com/wp-plugins/trashed-by/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Track which user actually trashed a post, separate from who created the "
+"post. Display that info as a column in admin post trash listings."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Scott Reilly"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://coffee2code.com/"
+msgstr ""
