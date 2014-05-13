@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trashed By 1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/trashed-by\n"
-"POT-Creation-Date: 2014-04-08 16:04:50+00:00\n"
+"POT-Creation-Date: 2014-05-13 22:39:01+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,8 +15,24 @@ msgstr ""
 
 #. #-#-#-#-#  trashed-by.pot (Trashed By 1.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: trashed-by.php:140
+#: trashed-by.php:141
 msgid "Trashed By"
+msgstr ""
+
+#: trashed-by.php:142
+msgid "Trashed On"
+msgstr ""
+
+#: trashed-by.php:175
+msgid "Y/m/d g:i:s A"
+msgstr ""
+
+#: trashed-by.php:181
+msgid "%s ago"
+msgstr ""
+
+#: trashed-by.php:183
+msgid "Y/m/d"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
@@ -25,8 +41,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Track which user actually trashed a post, separate from who created the "
-"post. Display that info as a column in admin post trash listings."
+"Tracks the user who trashed a post and when they trashed it. Displays that "
+"info as columns in admin trashed posts listings."
 msgstr ""
 
 #. Author of the plugin/theme

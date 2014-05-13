@@ -5,18 +5,18 @@ Tags: trash, deleted, post, audit, auditing, tracking, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.6
-Tested up to: 3.8
+Tested up to: 3.9
 Stable tag: 1.0
 
-Track which user actually trashed a post, separate from who created the post. Display that info as a column in admin post trash listings.
+Tracks the user who trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
 
 == Description ==
 
-This plugin records which user actually trashed/deleted a post, which in a multi-author environment may not always be the original post author. This helps to maintain accountability for who was ultimately responsible for deleting a post.
+This plugin records which user actually trashed/deleted a post, which in a multi-author environment may not always be the original post author. This helps to maintain accountability for who was ultimately responsible for deleting a post. It also records when the post got deleted.
 
-The admin listing of trashed posts is amended with a new "Trashed By" column that shows the name of the person who trashed the post or page.
+The admin listing of trashed posts is amended with new "Trashed By" and "Trashed On" columns that shows the name of the person who trashed the post or page and the date the post was trashed, respectively.
 
-For posts that were trashed prior to the use of this plugin (thus the plugin could not have directly recorded who trashed those posts), the plugin makes no assumption about who trashed those posts. The "Trashed By" value for those posts will remain empty. Put another way, only posts or pages trashed while this plugin is active will have the user who trashed the post/page recorded.
+The plugin makes no assumption about who trashed a posts, or when, for posts that were trashed prior to the use of this plugin (since the plugin could not have directly recorded information about the post's trashing). The "Trashed By" and "Trashed On" values for those posts will remain empty. Put another way, only posts or pages trashed while this plugin is active will have the user who trashed the post/page and that date recorded.
 
 Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/trashed-by/) | [Plugin Directory Page](http://wordpress.org/plugins/trashed-by/) | [Author Homepage](http://coffee2code.com)
 
@@ -29,18 +29,26 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/trashed-by/) | [Plugi
 
 == Screenshots ==
 
-1. A screenshot of the admin post trash listing showing the added "Trashed By" column.
+1. A screenshot of the admin post trash listing showing the added "Trashed By" and "Trashed On" columns.
 
 
 == Frequently Asked Questions ==
+
+= What if I am only interested in seeing when a post was trashed but not who trashed it? =
+
+The visibility of the "Trashed By" and "Trashed On" columns can be controlled by the "Screen Options" slide-down options panel available at the top right of the page when viewing the trash listing in the admin.
 
 = If a post is trashed, then restored, and then trashed a second time by a different person, who is noted as the trashing user? =
 
 The user most recently responsible for trashing a post will be recorded as the trashing user.
 
-= Why is the "Trashed By" column blank for posts in trash? =
+= Why are the "Trashed By" and "Trashed On" columns blank for some posts in the trash? =
 
 This should only be the case for posts that were trashed prior to activating this plugin (or any time when the plugin wasn't active).
+
+= Does the plugin retain any information about a previously trashed post once it has been restored? =
+
+No. Once a trashed post is restored and thus removed from the trash, the information about when and who deleted the post is deleted.
 
 = Does this plugin include unit tests? =
 

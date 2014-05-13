@@ -9,9 +9,9 @@
  * Domain Path: /lang/
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Description: Track which user actually trashed a post, separate from who created the post. Display that info as a column in admin post trash listings.
+ * Description: Tracks the user who trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
  *
- * Compatible with WordPress 3.6 through 3.8+.
+ * Compatible with WordPress 3.6 through 3.9+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
@@ -24,7 +24,6 @@
 
 /*
 TODO:
-	* Remove custom field for posts that get restored?
 	* Provisions to disable/enable per post_type?
 */
 
@@ -52,8 +51,10 @@ if ( ! class_exists( 'c2c_TrashedBy' ) ) :
 
 class c2c_TrashedBy {
 
-	private static $meta_key = 'c2c-trashed-by';
-	private static $field    = 'trashed_by';
+	private static $meta_key_user = 'c2c-trashed-by';
+	private static $meta_key_date = 'c2c-trashed-on';
+	private static $field_user    = 'trashed_by';
+	private static $field_date    = 'trashed_on';
 
 	/**
 	 * Returns version of the plugin.
@@ -124,7 +125,7 @@ class c2c_TrashedBy {
 	 * @since 1.0
 	 */
 	public static function admin_css() {
-		echo "<style type='text/css'>.fixed .column-" . self::$field . " { width: 10%; }</style>\n";
+		echo "<style type='text/css'>.fixed .column-" . self::$field_user . ", .fixed .column-" . self::$field_date . " { width: 10%; }</style>\n";
 	}
 
 	/**
@@ -137,7 +138,8 @@ class c2c_TrashedBy {
 	 */
 	public static function add_post_column( $posts_columns ) {
 		if ( self::include_column() ) {
-			$posts_columns[ self::$field ] = __( 'Trashed By', 'trashed-by' );
+			$posts_columns[ self::$field_user ] = __( 'Trashed By', 'trashed-by' );
+			$posts_columns[ self::$field_date ] = __( 'Trashed On', 'trashed-by' );
 		}
 
 		return $posts_columns;
@@ -157,11 +159,31 @@ class c2c_TrashedBy {
 			return;
 		}
 
-		if ( self::$field === $column_name ) {
+		// Display the username of the user who trashed the post.
+		if ( self::$field_user === $column_name ) {
 			$trasher_id = self::get_trasher_id( $post_id );
 			if ( $trasher_id ) {
 				$trasher = get_userdata( $trasher_id );
 				echo sanitize_text_field( $trasher->display_name );
+			}
+
+		// Display the date for when the post was trashed.
+		} elseif ( self::$field_date === $column_name ) {
+			$trashed_date = self::get_trashed_on( $post_id );
+			if ( $trashed_date ) {
+				$post      = get_post( $post_id );
+				$t_time    = mysql2date( __( 'Y/m/d g:i:s A' ), $trashed_date, false );
+				$time_from = mysql2date( 'U', $trashed_date, false );
+				$time_to   = current_time( 'timestamp', false );
+				$time_diff = $time_to - $time_from;
+
+				if ( $time_diff > 0 && $time_diff < DAY_IN_SECONDS ) {
+					$h_time = sprintf( __( '%s ago' ), human_time_diff( $time_from, $time_to ) );
+				} else {
+					$h_time = mysql2date( __( 'Y/m/d' ), $trashed_date );
+				}
+
+				echo '<abbr title="' . $t_time . '">' . apply_filters( 'post_date_column_time', $h_time, $post, 'trashed_on', 'list' ) . '</abbr>';
 			}
 		}
 	}
@@ -176,7 +198,7 @@ class c2c_TrashedBy {
 	 * @return bool
 	 */
 	public static function hide_meta( $protected, $meta_key ) {
-		if ( self::$meta_key == $meta_key ) {
+		if ( in_array( $meta_key, array( self::$meta_key_user, self::$meta_key_date ) ) ) {
 			return true;
 		}
 
@@ -184,7 +206,7 @@ class c2c_TrashedBy {
 	}
 
 	/**
-	 * Records the trasher of the post.
+	 * Records the date a post was trashed and the user who trashed the post.
 	 *
 	 * @since 1.0
 	 *
@@ -193,18 +215,22 @@ class c2c_TrashedBy {
 	 */
 	public static function transition_post_status( $new_status, $old_status, $post ) {
 		// Only concerned with posts changing post status
-		if ( $new_status == $old_status ) {
+		if ( $new_status === $old_status ) {
 			return;
 		}
 
-		// Only concerned with posts being trashed
-		if ( 'trash' !== $new_status ) {
-			return;
-		}
+		// Save user and date for post being trashed
+		if ( 'trash' === $new_status ) {
+			// Can only save trashing user ID if one can be obtained
+			if ( $current_user_id = get_current_user_id() ) {
+				update_post_meta( $post->ID, self::$meta_key_user, $current_user_id );
+				update_post_meta( $post->ID, self::$meta_key_date, current_time( 'mysql' ) );
+			}
 
-		// Can only save trashing user ID if one can be obtained
-		if ( $current_user_id = get_current_user_id() ) {
-			update_post_meta( $post->ID, self::$meta_key, $current_user_id );
+		// Clear trashing user and date when being untrashed
+		} elseif ( 'trash' === $old_status ) {
+			delete_post_meta( $post->ID, self::$meta_key_user );
+			delete_post_meta( $post->ID, self::$meta_key_date );
 		}
 	}
 
@@ -225,10 +251,30 @@ class c2c_TrashedBy {
 
 		if ( $post && 'trash' === get_post_status( $post_id ) ) {
 			// Use trasher id saved in custom field by the plugin.
-			$trasher_id = get_post_meta( $post_id, self::$meta_key, true );
+			$trasher_id = get_post_meta( $post_id, self::$meta_key_user, true );
 		}
 
 		return $trasher_id;
+	}
+
+	/**
+	 * Returns the date the post was trashed.
+	 *
+	 * @since 1.0
+	 *
+	 * @param  int    $post_id The id of the post being displayed.
+	 * @return string The datetime string for when the post was trashed.
+	 */
+	public static function get_trashed_on( $post_id ) {
+		$trashed_on = '';
+		$post       = get_post( $post_id );
+
+		if ( $post && 'trash' === get_post_status( $post_id ) ) {
+			// Use trashed date saved in custom field by the plugin.
+			$trashed_on = get_post_meta( $post_id, self::$meta_key_date, true );
+		}
+
+		return $trashed_on;
 	}
 
 } // end c2c_TrashedBy
