@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Trashed By
- * Version:     1.0
+ * Version:     1.0.1
  * Plugin URI:  http://coffee2code.com/wp-plugins/trashed-by/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -11,15 +11,15 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Description: Tracks the user who trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
  *
- * Compatible with WordPress 3.6 through 3.9+.
+ * Compatible with WordPress 3.6 through 4.0+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
- * =>> Or visit: http://wordpress.org/plugins/trashed-by/
+ * =>> Or visit: https://wordpress.org/plugins/trashed-by/
  *
  * @package Trashed_By
  * @author  Scott Reilly
- * @version 1.0
+ * @version 1.0.1
  */
 
 /*
@@ -62,7 +62,7 @@ class c2c_TrashedBy {
 	 * @since 1.0
 	 */
 	public static function version() {
-		return '1.0';
+		return '1.0.1';
 	}
 
 	/**

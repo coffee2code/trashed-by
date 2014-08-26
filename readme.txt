@@ -1,12 +1,12 @@
 === Trashed By ===
 Contributors: coffee2code
-Donate link: http://coffee2code.com/donate
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522
 Tags: trash, deleted, post, audit, auditing, tracking, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.6
-Tested up to: 3.9
-Stable tag: 1.0
+Tested up to: 4.0
+Stable tag: 1.0.1
 
 Tracks the user who trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
 
@@ -18,7 +18,7 @@ The admin listing of trashed posts is amended with new "Trashed By" and "Trashed
 
 The plugin makes no assumption about who trashed a posts, or when, for posts that were trashed prior to the use of this plugin (since the plugin could not have directly recorded information about the post's trashing). The "Trashed By" and "Trashed On" values for those posts will remain empty. Put another way, only posts or pages trashed while this plugin is active will have the user who trashed the post/page and that date recorded.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/trashed-by/) | [Plugin Directory Page](http://wordpress.org/plugins/trashed-by/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/trashed-by/) | [Plugin Directory Page](https://wordpress.org/plugins/trashed-by/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
@@ -57,11 +57,20 @@ Yes.
 
 == Changelog ==
 
+= 1.0.1 (2014-08-25) =
+* Change documentation links to wp.org to be https
+* Change donate link
+* Note compatibility through WP 4.0+
+* Add plugin icon
+
 = 1.0 =
 * Initial public release
 
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Trivial update: noted compatibility through WP 4.0+; added plugin icon.
 
 = 1.0 =
 Initial public release.
