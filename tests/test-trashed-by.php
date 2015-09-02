@@ -12,7 +12,7 @@ class Trashed_By_Test extends WP_UnitTestCase {
 
 
 
-	/**
+	/*
 	 * HELPER FUNCTIONS
 	 */
 
@@ -43,9 +43,11 @@ class Trashed_By_Test extends WP_UnitTestCase {
 
 
 
-	/**
+	/*
 	 * FUNCTIONS FOR HOOKING ACTIONS/FILTERS
 	 */
+
+
 
 	public function query_for_posts( $text ) {
 		$q = new WP_Query( array( 'post_type' => 'post' ) );
@@ -63,13 +65,13 @@ class Trashed_By_Test extends WP_UnitTestCase {
 
 
 
-	/**
+	/*
 	 * TESTS
 	 */
 
 
 	function test_plugin_version() {
-		$this->assertEquals( '1.0.2', c2c_TrashedBy::version() );
+		$this->assertEquals( '1.0.3', c2c_TrashedBy::version() );
 	}
 
 	function test_class_is_available() {
