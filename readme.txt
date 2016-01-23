@@ -5,8 +5,8 @@ Tags: trash, deleted, post, audit, auditing, tracking, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.6
-Tested up to: 4.3
-Stable tag: 1.0.3
+Tested up to: 4.4
+Stable tag: 1.0.4
 
 Tracks the user who trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
 
@@ -50,12 +50,32 @@ This should only be the case for posts that were trashed prior to activating thi
 
 No. Once a trashed post is restored and thus removed from the trash, the information about when and who deleted the post is deleted.
 
+= Does this plugin track who permanently deleted a posted? =
+
+Just so everyone is clear, "Trashed" and "Permanently deleted" are two differently things.
+
+Trashed posts get assigned a post status of "trash" and then only appear in the "Trash" list of the page/post area of the admin. These posts still exist, they're just hidden temporarily. As such, it is possible for the plugin to keep track of and report who trashed the post.
+
+Permanently deleted posts (whether done so directly by a user or automatically by WordPress for posts that have been trashed for a period of time) are completely deleted. This plugin does not track who deleted those posts.
+
 = Does this plugin include unit tests? =
 
 Yes.
 
 
 == Changelog ==
+
+= 1.0.4 (2016-01-22) =
+* New: Add support for language packs:
+    * Add omitted textdomain from some string translation calls.
+    * Remove 'Domain Path' header attribute.
+    * Don't load textdomain from file.
+    * Remove .pot file and /lang subdirectory.
+* New: Create empty index.php to prevent files from being listed if web server has enabled directory listings.
+* New: Add additional FAQ about trash versus permanently deleted.
+* Change: Note compatibility through WP 4.4+.
+* Change: Explicitly declare methods in unit tests as public.
+* Change: Update copyright date (2016).
 
 = 1.0.3 (2015-09-01) =
 * Change: Use `dirname(__FILE__)` instead of `__DIR__` since the latter is only available on PHP 5.3+.
@@ -79,6 +99,9 @@ Yes.
 
 
 == Upgrade Notice ==
+
+= 1.0.4 =
+Trivial update: improved support for localization, minor unit test tweaks, verified compatibility through WP 4.4+, and updated copyright date (2016)
 
 = 1.0.3 =
 Minor bugfix release for users running PHP 5.2.x: revert use of a constant only defined in PHP 5.3+. You really should upgrade your PHP or your host if this affects you. Also noted compatibility with WP 4.3+.

@@ -1,17 +1,16 @@
 <?php
 /**
  * Plugin Name: Trashed By
- * Version:     1.0.3
+ * Version:     1.0.4
  * Plugin URI:  http://coffee2code.com/wp-plugins/trashed-by/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
  * Text Domain: trashed-by
- * Domain Path: /lang/
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Description: Tracks the user who trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
  *
- * Compatible with WordPress 3.6 through 4.3+.
+ * Compatible with WordPress 3.6 through 4.4+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
@@ -19,7 +18,7 @@
  *
  * @package Trashed_By
  * @author  Scott Reilly
- * @version 1.0.3
+ * @version 1.0.4
  */
 
 /*
@@ -28,7 +27,7 @@
  */
 
 /*
-	Copyright (c) 2014-2015 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2014-2016 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -62,7 +61,7 @@ class c2c_TrashedBy {
 	 * @since 1.0
 	 */
 	public static function version() {
-		return '1.0.3';
+		return '1.0.4';
 	}
 
 	/**
@@ -81,7 +80,7 @@ class c2c_TrashedBy {
 	 */
 	public static function do_init() {
 		// Load textdomain
-		load_plugin_textdomain( 'trashed-by', false, basename( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'lang' );
+		load_plugin_textdomain( 'trashed-by' );
 
 		// Register hooks
 		add_filter( 'manage_posts_columns',        array( __CLASS__, 'add_post_column' )               );
@@ -172,15 +171,15 @@ class c2c_TrashedBy {
 			$trashed_date = self::get_trashed_on( $post_id );
 			if ( $trashed_date ) {
 				$post      = get_post( $post_id );
-				$t_time    = mysql2date( __( 'Y/m/d g:i:s A' ), $trashed_date, false );
+				$t_time    = mysql2date( __( 'Y/m/d g:i:s A', 'trashed-by' ), $trashed_date, false );
 				$time_from = mysql2date( 'U', $trashed_date, false );
 				$time_to   = current_time( 'timestamp', false );
 				$time_diff = $time_to - $time_from;
 
 				if ( $time_diff > 0 && $time_diff < DAY_IN_SECONDS ) {
-					$h_time = sprintf( __( '%s ago' ), human_time_diff( $time_from, $time_to ) );
+					$h_time = sprintf( __( '%s ago', 'trashed-by' ), human_time_diff( $time_from, $time_to ) );
 				} else {
-					$h_time = mysql2date( __( 'Y/m/d' ), $trashed_date );
+					$h_time = mysql2date( __( 'Y/m/d', 'trashed-by' ), $trashed_date );
 				}
 
 				echo '<abbr title="' . $t_time . '">' . apply_filters( 'post_date_column_time', $h_time, $post, 'trashed_on', 'list' ) . '</abbr>';

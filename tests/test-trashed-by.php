@@ -1,21 +1,21 @@
 <?php
 
+defined( 'ABSPATH' ) or die();
+
 class Trashed_By_Test extends WP_UnitTestCase {
 
 	protected static $meta_key_user = 'c2c-trashed-by';
 	protected static $meta_key_date = 'c2c-trashed-on';
 
-	function tearDown() {
+	public function tearDown() {
 		parent::tearDown();
 		$this->unset_current_user();
 	}
 
 
-
-	/*
-	 * HELPER FUNCTIONS
-	 */
-
+	//
+	// HELPER FUNCTIONS
+	//
 
 
 	private function create_user( $set_as_current = true ) {
@@ -42,11 +42,9 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	}
 
 
-
-	/*
-	 * FUNCTIONS FOR HOOKING ACTIONS/FILTERS
-	 */
-
+	//
+	// FUNCTIONS FOR HOOKING ACTIONS/FILTERS
+	//
 
 
 	public function query_for_posts( $text ) {
@@ -64,21 +62,20 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	}
 
 
+	//
+	// TESTS
+	//
 
-	/*
-	 * TESTS
-	 */
 
-
-	function test_plugin_version() {
-		$this->assertEquals( '1.0.3', c2c_TrashedBy::version() );
+	public function test_plugin_version() {
+		$this->assertEquals( '1.0.4', c2c_TrashedBy::version() );
 	}
 
-	function test_class_is_available() {
+	public function test_class_is_available() {
 		$this->assertTrue( class_exists( 'c2c_TrashedBy' ) );
 	}
 
-	function test_meta_keys_not_created_for_post_not_trashed() {
+	public function test_meta_keys_not_created_for_post_not_trashed() {
 		$author_id = $this->create_user( false );
 		$post_id   = $this->factory->post->create( array( 'post_status' => 'draft', 'post_author' => $author_id ) );
 		$user_id   = $this->create_user();
@@ -90,7 +87,7 @@ class Trashed_By_Test extends WP_UnitTestCase {
 		$this->assertEmpty( get_post_meta( $post_id, self::$meta_key_date, true ) );
 	}
 
-	function test_meta_keys_not_created_for_post_saved_as_pending() {
+	public function test_meta_keys_not_created_for_post_saved_as_pending() {
 		$author_id = $this->create_user( false );
 		$post_id   = $this->factory->post->create( array( 'post_status' => 'draft', 'post_author' => $author_id ) );
 		$user_id   = $this->create_user();
@@ -103,7 +100,7 @@ class Trashed_By_Test extends WP_UnitTestCase {
 		$this->assertEmpty( get_post_meta( $post_id, self::$meta_key_date, true ) );
 	}
 
-	function test_meta_keys_created_for_trashed_post() {
+	public function test_meta_keys_created_for_trashed_post() {
 		$author_id = $this->create_user( false );
 		$post_id   = $this->factory->post->create( array( 'post_author' => $author_id ) );
 		$user_id   = $this->create_user();
@@ -116,7 +113,7 @@ class Trashed_By_Test extends WP_UnitTestCase {
 		$this->assertNotEmpty( get_post_meta( $post_id, self::$meta_key_date, true ) );
 	}
 
-	function test_meta_keys_updated_for_retrashed_post() {
+	public function test_meta_keys_updated_for_retrashed_post() {
 		$author_id = $this->create_user( false );
 		$post_id   = $this->factory->post->create( array( 'post_author' => $author_id ) );
 		$user1_id  = $this->create_user( false );
@@ -140,7 +137,7 @@ class Trashed_By_Test extends WP_UnitTestCase {
 		$this->assertNotEquals( $date,  get_post_meta( $post_id, self::$meta_key_date, true ) );
 	}
 
-	function test_blank_is_returned_if_metas_not_present() {
+	public function test_blank_is_returned_if_metas_not_present() {
 		$author_id = $this->create_user( false );
 		$post_id   = $this->factory->post->create( array( 'post_status' => 'trash', 'post_author' => $author_id ) );
 		$user_id   = $this->create_user();
@@ -151,7 +148,7 @@ class Trashed_By_Test extends WP_UnitTestCase {
 		$this->assertEmpty( get_post_meta( $post_id, self::$meta_key_date, true ) );
 	}
 
-	function test_blank_is_returned_if_not_trash() {
+	public function test_blank_is_returned_if_not_trash() {
 		$author_id = $this->create_user( false );
 		$post_id   = $this->factory->post->create( array( 'post_status' => 'publish', 'post_author' => $author_id ) );
 		$user_id   = $this->create_user();
@@ -162,7 +159,7 @@ class Trashed_By_Test extends WP_UnitTestCase {
 		$this->assertEmpty( get_post_meta( $post_id, self::$meta_key_date, true ) );
 	}
 
-	function test_blank_is_returned_if_not_trash_even_if_metas_is_present() {
+	public function test_blank_is_returned_if_not_trash_even_if_metas_is_present() {
 		$author_id = $this->create_user( false );
 		$post_id   = $this->factory->post->create( array( 'post_status' => 'publish', 'post_author' => $author_id ) );
 		$user_id   = $this->create_user();
@@ -177,7 +174,7 @@ class Trashed_By_Test extends WP_UnitTestCase {
 		$this->assertEquals( $date,    get_post_meta( $post_id, self::$meta_key_date, true ) );
 	}
 
-	function test_editing_trashed_post_does_not_change_trasher() {
+	public function test_editing_trashed_post_does_not_change_trasher() {
 		$author_id = $this->create_user( false );
 		$post_id   = $this->factory->post->create( array( 'post_author' => $author_id ) );
 		$user_id1  = $this->create_user();
