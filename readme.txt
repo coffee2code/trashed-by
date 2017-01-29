@@ -4,8 +4,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: trash, deleted, post, audit, auditing, tracking, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 3.6
-Tested up to: 4.4
+Requires at least: 4.6
+Tested up to: 4.7
 Stable tag: 1.0.4
 
 Tracks the user who trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
@@ -68,6 +68,8 @@ Yes.
 = () =
 * Change: Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable.
 * Change: Enable more error output for unit tests.
+* Change: Note compatibility through WP 4.7+.
+* Change: Remove support for WordPress older than 4.6 (should still work for earlier versions)
 * Change: Update copyright date (2017).
 
 = 1.0.4 (2016-01-22) =
