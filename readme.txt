@@ -12,7 +12,7 @@ Tracks the user who trashed a post and when they trashed it. Displays that info 
 
 == Description ==
 
-This plugin records which user actually trashed/deleted a post, which in a multi-author environment may not always be the original post author. This helps to maintain accountability for who was ultimately responsible for deleting a post. It also records when the post got deleted.
+This plugin records which user actually trashed a post, which in a multi-author environment may not always be the original post author. This helps to maintain accountability for who was ultimately responsible for deleting a post. It also records when the post got trashed.
 
 The admin listing of trashed posts is amended with new "Trashed By" and "Trashed On" columns that shows the name of the person who trashed the post or page and the date the post was trashed, respectively.
 
@@ -48,15 +48,15 @@ This should only be the case for posts that were trashed prior to activating thi
 
 = Does the plugin retain any information about a previously trashed post once it has been restored? =
 
-No. Once a trashed post is restored and thus removed from the trash, the information about when and who deleted the post is deleted.
+No. Once a trashed post is restored and thus removed from the trash, the information about when and who trashed the post is deleted.
 
 = Does this plugin track who permanently deleted a posted? =
 
 Just so everyone is clear, "Trashed" and "Permanently deleted" are two differently things.
 
-Trashed posts get assigned a post status of "trash" and then only appear in the "Trash" list of the page/post area of the admin. These posts still exist, they're just hidden temporarily. As such, it is possible for the plugin to keep track of and report who trashed the post.
+Trashed posts get assigned a post status of "trash" and then only appear in the "Trash" list of the page/post area of the admin. These posts still exist, they're just hidden from public view. This operates like the trash feature in your operating system; you can still go into the trash to retrieve something before it is gone for good. As such, it is possible for the plugin to keep track of and report who trashed the post.
 
-Permanently deleted posts (whether done so directly by a user or automatically by WordPress for posts that have been trashed for a period of time) are completely deleted. This plugin does not track who deleted those posts.
+Permanently deleted posts (whether done so directly by a user or automatically by WordPress for posts that have been in the trash for a period of time) are completely deleted from the database. This plugin does not track who deleted those posts.
 
 = How do I see (or hide) the "Trash By" and/or "Trashed On" columns in an admin listing of posts? =
 
