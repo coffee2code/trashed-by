@@ -83,6 +83,7 @@ Yes.
 * Change: Note compatibility through WP 4.7+.
 * Change: Remove support for WordPress older than 4.6 (should still work for earlier versions)
 * New: Add FAQ about showing or hiding the "Trashed By" and "Trashed On" columns.
+* Change: Add inline docs for class variables.
 * Change: Update copyright date (2017).
 
 = 1.0.4 (2016-01-22) =

@@ -50,9 +50,36 @@ if ( ! class_exists( 'c2c_TrashedBy' ) ) :
 
 class c2c_TrashedBy {
 
+	/**
+	 * Name for meta key used to store id of trashing user.
+	 *
+	 * @access private
+	 * @var string
+	 */
 	private static $meta_key_user = 'c2c-trashed-by';
+
+	/**
+	 * Name for meta key used to store date post was trashed.
+	 *
+	 * @access private
+	 * @var string
+	 */
 	private static $meta_key_date = 'c2c-trashed-on';
+
+	/**
+	 * Field name for the post listing column for the trashed by user.
+	 *
+	 * @access private
+	 * @var string
+	 */
 	private static $field_user    = 'trashed_by';
+
+	/**
+	 * Field name for the post listing column for the trashbed on date.
+	 *
+	 * @access private
+	 * @var string
+	 */
 	private static $field_date    = 'trashed_on';
 
 	/**
