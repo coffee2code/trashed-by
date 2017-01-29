@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Trashed By
- * Version:     1.0.4
+ * Version:     1.1
  * Plugin URI:  http://coffee2code.com/wp-plugins/trashed-by/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -18,12 +18,16 @@
  *
  * @package Trashed_By
  * @author  Scott Reilly
- * @version 1.0.4
+ * @version 1.1
  */
 
 /*
  * TODO:
  * - Provisions to disable/enable per post_type?
+ * - Log permanently deleted posts. Perhaps as a new post type not listed in the main menu. Maybe accessible via pseudo-status link
+ *   atop post listing table (e.g. "| Permanently Deleted (21)" ). Only duplicate necessary fields from original post before its
+ *   deletion: post_title, post_author, post_date, post_modified, post_type (stored instead as meta), and the trashed-by and
+ *   trashed-on metas.
  */
 
 /*
@@ -88,7 +92,7 @@ class c2c_TrashedBy {
 	 * @since 1.0
 	 */
 	public static function version() {
-		return '1.0.4';
+		return '1.1';
 	}
 
 	/**

@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 4.7
-Stable tag: 1.0.4
+Stable tag: 1.1
 
 Tracks the user who trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
 
@@ -69,7 +69,7 @@ Yes.
 
 == Changelog ==
 
-= () =
+= 1.1 (2017-01-29) =
 * New: When showing the 'Trashed By' user, link their display name to their profile page.
     * Add `get_user_url()` to get the link to the user's profile
 * Change: Register meta field via `register_meta()`
@@ -122,6 +122,9 @@ Yes.
 
 
 == Upgrade Notice ==
+
+= 1.1 =
+Minor feature update: linked usernames to profiles, referred to currenet user as "you", compatibility is now WP 4.6-4.7+, updated copyright date (2017), and more
 
 = 1.0.4 =
 Trivial update: improved support for localization, minor unit test tweaks, verified compatibility through WP 4.4+, and updated copyright date (2016)
