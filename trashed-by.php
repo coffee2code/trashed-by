@@ -128,6 +128,20 @@ class c2c_TrashedBy {
 	}
 
 	/**
+	 * Returns the URL for the user.
+	 *
+	 * @since 1.1
+	 *
+	 * @param  int $user_id The user ID.
+	 * @return string
+	 */
+	public static function get_user_url( $user_id ) {
+		if ( (int) $user_id ) {
+			return self_admin_url( 'user-edit.php?user_id=' . (int) $user_id );
+		}
+	}
+
+	/**
 	 * Adds a column to show who trashed the post/page.
 	 *
 	 * @since 1.0
@@ -162,8 +176,17 @@ class c2c_TrashedBy {
 		if ( self::$field_user === $column_name ) {
 			$trasher_id = self::get_trasher_id( $post_id );
 			if ( $trasher_id ) {
-				$trasher = get_userdata( $trasher_id );
-				echo sanitize_text_field( $trasher->display_name );
+				if ( get_current_user_id() === $trasher_id ) {
+					$user_link = '<span>you</span>';
+				} else {
+					$trasher = get_userdata( $trasher_id );
+					$user_link = sprintf(
+						'<a href="%s">%s</a>',
+						esc_url( self::get_user_url( $trasher_id ) ),
+						sanitize_text_field( $trasher->display_name )
+					);
+				}
+				echo $user_link;
 			}
 
 		// Display the date for when the post was trashed.
