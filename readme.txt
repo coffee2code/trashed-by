@@ -58,6 +58,10 @@ Trashed posts get assigned a post status of "trash" and then only appear in the 
 
 Permanently deleted posts (whether done so directly by a user or automatically by WordPress for posts that have been trashed for a period of time) are completely deleted. This plugin does not track who deleted those posts.
 
+= How do I see (or hide) the "Trash By" and/or "Trashed On" columns in an admin listing of posts? =
+
+In the upper-right of the page is a "Screen Options" link that reveals a panel of options. In the "Columns" section, check (to show) or uncheck (to hide) the "Trashed By" and/or "Trashed On" options.
+
 = Does this plugin include unit tests? =
 
 Yes.
@@ -71,6 +75,7 @@ Yes.
 * Change: Enable more error output for unit tests.
 * Change: Note compatibility through WP 4.7+.
 * Change: Remove support for WordPress older than 4.6 (should still work for earlier versions)
+* New: Add FAQ about showing or hiding the "Trashed By" and "Trashed On" columns.
 * Change: Update copyright date (2017).
 
 = 1.0.4 (2016-01-22) =
