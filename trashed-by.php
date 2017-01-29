@@ -245,7 +245,7 @@ class c2c_TrashedBy {
 	 * @return int The ID of the user who trashed the post.
 	 */
 	public static function get_trasher_id( $post_id ) {
-		$trasher_id = '';
+		$trasher_id = 0;
 		$post       = get_post( $post_id );
 
 		if ( $post && 'trash' === get_post_status( $post_id ) ) {
@@ -253,7 +253,7 @@ class c2c_TrashedBy {
 			$trasher_id = get_post_meta( $post_id, self::$meta_key_user, true );
 		}
 
-		return $trasher_id;
+		return (int) $trasher_id;
 	}
 
 	/**
