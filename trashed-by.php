@@ -90,7 +90,33 @@ class c2c_TrashedBy {
 
 		add_action( 'load-edit.php',               array( __CLASS__, 'add_admin_css' )                 );
 		add_action( 'transition_post_status',      array( __CLASS__, 'transition_post_status' ), 10, 3 );
-		add_filter( 'is_protected_meta',           array( __CLASS__, 'hide_meta' ),              10, 2 );
+
+		self::register_meta();
+	}
+
+	/**
+	 * Registers the post meta fields.
+	 *
+	 * @since 1.1
+	 */
+	public static function register_meta() {
+		register_meta( 'post', self::$meta_key_user, array(
+			'type'              => 'integer',
+			'description'       => __( 'The user who trashed the post', 'trashed-by' ),
+			'single'            => true,
+			'sanitize_callback' => 'absint',
+			'auth_callback'     => '__return_false',
+			'show_in_rest'      => false,
+		) );
+
+		register_meta( 'post', self::$meta_key_date, array(
+			'type'              => 'integer',
+			'description'       => __( 'The date the post was trashed', 'trashed-by' ),
+			'single'            => true,
+			'sanitize_callback' => '',
+			'auth_callback'     => '__return_false',
+			'show_in_rest'      => false,
+		) );
 	}
 
 	/**
@@ -208,23 +234,6 @@ class c2c_TrashedBy {
 				echo '<abbr title="' . $t_time . '">' . apply_filters( 'post_date_column_time', $h_time, $post, 'trashed_on', 'list' ) . '</abbr>';
 			}
 		}
-	}
-
-	/**
-	 * Hides the meta key from the custom field dropdown.
-	 *
-	 * @since 1.0
-	 *
-	 * @param  bool   $protected Is the meta key protected?
-	 * @param  string $meta_key  The meta key
-	 * @return bool
-	 */
-	public static function hide_meta( $protected, $meta_key ) {
-		if ( in_array( $meta_key, array( self::$meta_key_user, self::$meta_key_date ) ) ) {
-			return true;
-		}
-
-		return $protected;
 	}
 
 	/**

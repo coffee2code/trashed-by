@@ -72,6 +72,10 @@ Yes.
 = () =
 * New: When showing the 'Trashed By' user, link their display name to their profile page.
     * Add `get_user_url()` to get the link to the user's profile
+* Change: Register meta field via `register_meta()`
+    * Add own `register_meta()`
+    * Remove `hide_meta()` in favor of use of `register_meta()`
+    * Do not include meta fields and values in REST API responses for posts
 * Change: If the current user is the person who trashed the post, then simply state "you" as the name.
 * Change: Ensure `get_trasher_id()` returns an integer value.
 * Change: Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable.

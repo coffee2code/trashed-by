@@ -7,9 +7,38 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	protected static $meta_key_user = 'c2c-trashed-by';
 	protected static $meta_key_date = 'c2c-trashed-on';
 
+	/**
+	 * Test REST Server
+	 *
+	 * @var WP_REST_Server
+	 */
+	protected $server;
+
+	public function setUp() {
+		parent::setUp();
+
+		/** @var WP_REST_Server $wp_rest_server */
+		global $wp_rest_server;
+		$this->server = $wp_rest_server = new \WP_REST_Server;
+		do_action( 'rest_api_init' );
+	}
+
 	public function tearDown() {
 		parent::tearDown();
 		$this->unset_current_user();
+	}
+
+
+	//
+	// DATA PROVIDERS
+	//
+
+
+	public static function get_metas() {
+		return array(
+			array( self::$meta_key_user ),
+			array( self::$meta_key_date ),
+		);
 	}
 
 
@@ -210,5 +239,34 @@ class Trashed_By_Test extends WP_UnitTestCase {
 		$this->assertEmpty( c2c_TrashedBy::get_user_url( 'hello' ) );
 	}
 
+	/*
+	 * REST API
+	 */
 
+
+	public function test_meta_are_registered() {
+		$this->assertTrue( registered_meta_key_exists( 'post', self::$meta_key_user ) );
+		$this->assertTrue( registered_meta_key_exists( 'post', self::$meta_key_date ) );
+	}
+
+	/**
+	 * @dataProvider get_metas
+	 */
+	public function test_rest_post_request_does_not_include_meta( $meta_key ) {
+		$author_id = $this->create_user( false );
+		$post_id = $this->factory->post->create( array( 'post_status' => 'publish', 'post_author' => $author_id ) );
+		add_post_meta( $post_id, $meta_key, $author_id );
+
+		$request = new WP_REST_Request( 'GET', sprintf( '/wp/v2/posts/%d', $post_id ) );
+		$response = $this->server->dispatch( $request );
+
+		$this->assertEquals( 200, $response->get_status() );
+
+		$data = $response->get_data();
+		$this->assertArrayHasKey( 'meta', $data );
+
+		$meta = (array) $data['meta'];
+		$this->assertArrayNotHasKey( $meta_key, $meta );
+//		$this->assertEquals( $author_id, $meta[ $meta_key ] );
+	}
 }
