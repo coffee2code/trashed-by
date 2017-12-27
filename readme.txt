@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 4.9
-Stable tag: 1.1
+Stable tag: 1.1.1
 
 Tracks the user who trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
 
@@ -23,7 +23,7 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/trashed-by/) | [Plugi
 
 == Installation ==
 
-1. Unzip `trashed-by.zip` inside the plugins directory for your site (typically `/wp-content/plugins/`). Or install via the built-in WordPress plugin installer)
+1. Install via the built-in WordPress plugin installer. Or download and unzip `trashed-by.zip` inside the plugins directory for your site (typically `wp-content/plugins/`)
 2. Activate the plugin through the 'Plugins' admin menu in WordPress
 
 
@@ -69,7 +69,7 @@ Yes.
 
 == Changelog ==
 
-= () =
+= 1.1.1 (2017-12-27) =
 * New: Add README.md
 * Change: Add GitHub link to readme
 * Change: Note compatibility through WP 4.9+
@@ -129,6 +129,9 @@ Yes.
 
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Trivial update: noted compatibility through WP 4.9+; added README.md; added GitHub link to readme; updated copyright date (2018)
 
 = 1.1 =
 Minor feature update: linked usernames to profiles, referred to currenet user as "you", compatibility is now WP 4.6-4.7+, updated copyright date (2017), and more
