@@ -71,6 +71,7 @@ Yes.
 
 = () =
 * Change: Note compatibility through WP 4.9+
+* Change: Update copyright date (2018)
 * Change: Minor code spacing in unit test bootstrap
 
 = 1.1 (2017-01-29) =
