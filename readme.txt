@@ -5,7 +5,7 @@ Tags: trash, deleted, post, audit, auditing, tracking, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
-Tested up to: 4.7
+Tested up to: 4.9
 Stable tag: 1.1
 
 Tracks the user who trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
@@ -70,6 +70,7 @@ Yes.
 == Changelog ==
 
 = () =
+* Change: Note compatibility through WP 4.9+
 * Change: Minor code spacing in unit test bootstrap
 
 = 1.1 (2017-01-29) =
