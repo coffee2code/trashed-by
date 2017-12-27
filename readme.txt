@@ -69,6 +69,9 @@ Yes.
 
 == Changelog ==
 
+= () =
+* Change: Minor code spacing in unit test bootstrap
+
 = 1.1 (2017-01-29) =
 * New: When showing the 'Trashed By' user, link their display name to their profile page.
     * Add `get_user_url()` to get the link to the user's profile
