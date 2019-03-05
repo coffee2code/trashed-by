@@ -70,6 +70,7 @@ Yes.
 == Changelog ==
 
 = () =
+* Change: Update copyright date (2019)
 * Change: Update License URI to be HTTPS
 
 = 1.1.1 (2017-12-27) =
