@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 5.1
-Stable tag: 1.1.1
+Stable tag: 1.2
 
 Tracks the user who trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
 
@@ -69,7 +69,7 @@ Yes.
 
 == Changelog ==
 
-= () =
+= 1.2 (2018-03-05) =
 * Change: (Hardening) Escape attribute before being output within markup
 * Change: Initialize plugin on 'plugins_loaded' action instead of on load
 * Change: Merge `do_init()` into `init()`
@@ -137,6 +137,9 @@ Yes.
 
 
 == Upgrade Notice ==
+
+= 1.2 =
+Minor update: modified initialization handling, escaped attribute prior to display (hardening), noted compatibility through WP 5.1+, updated copyright date (2019)
 
 = 1.1.1 =
 Trivial update: noted compatibility through WP 4.9+; added README.md; added GitHub link to readme; updated copyright date (2018)
