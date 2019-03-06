@@ -253,7 +253,7 @@ class c2c_TrashedBy {
 					$h_time = mysql2date( __( 'Y/m/d', 'trashed-by' ), $trashed_date );
 				}
 
-				echo '<abbr title="' . $t_time . '">' . apply_filters( 'post_date_column_time', $h_time, $post, 'trashed_on', 'list' ) . '</abbr>';
+				echo '<abbr title="' . esc_attr( $t_time ) . '">' . apply_filters( 'post_date_column_time', $h_time, $post, 'trashed_on', 'list' ) . '</abbr>';
 			}
 		}
 	}
