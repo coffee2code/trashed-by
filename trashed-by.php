@@ -341,6 +341,6 @@ class c2c_TrashedBy {
 
 } // end c2c_TrashedBy
 
-c2c_TrashedBy::init();
+add_action( 'plugins_loaded', array( 'c2c_TrashedBy', 'init' ) );
 
 endif; // end if !class_exists()
