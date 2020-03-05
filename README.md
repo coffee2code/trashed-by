@@ -11,7 +11,7 @@ A plugin for WordPress that tracks the user who trashed a post and when they tra
 
 ## Additional Documentation
 
-See [readme.txt](https://github.com/coffee2code/trashed-by/blob/master/readme.txt) for additional usage information.
+See [readme.txt](https://github.com/coffee2code/trashed-by/blob/master/readme.txt) for additional usage information. See [CHANGELOG.md](CHANGELOG.md) for the list of changes for each release.
 
 
 ## Support
