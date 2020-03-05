@@ -4,8 +4,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: trash, deleted, post, audit, auditing, tracking, coffee2code
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 4.6
-Tested up to: 5.1
+Requires at least: 4.9
+Tested up to: 5.3
 Stable tag: 1.2
 
 Tracks the user who trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
