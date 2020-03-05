@@ -2,6 +2,7 @@
 
 ## _(in-progress)_
 * New: Add CHANGELOG.md and move all but most recent changelog entries into it
+* Change: Update copyright date (2020)
 
 ## 1.2 _(2018-03-05)_
 * Change: (Hardening) Escape attribute before being output within markup
