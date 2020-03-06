@@ -22,15 +22,6 @@
  */
 
 /*
- * TODO:
- * - Provisions to disable/enable per post_type?
- * - Log permanently deleted posts. Perhaps as a new post type not listed in the main menu. Maybe accessible via pseudo-status link
- *   atop post listing table (e.g. "| Permanently Deleted (21)" ). Only duplicate necessary fields from original post before its
- *   deletion: post_title, post_author, post_date, post_modified, post_type (stored instead as meta), and the trashed-by and
- *   trashed-on metas.
- */
-
-/*
 	Copyright (c) 2014-2020 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
