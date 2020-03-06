@@ -8,6 +8,7 @@
     * Change: Update unit test install script and bootstrap to use latest WP unit test repo
 * Change: Note compatibility through WP 5.3+
 * Change: Drop compatibility with version of WP older than 4.9
+* Change: Split paragraph in README.md's "Support" section into two
 * Change: Update copyright date (2020)
 
 ## 1.2 _(2018-03-05)_
