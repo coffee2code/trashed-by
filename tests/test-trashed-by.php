@@ -104,6 +104,10 @@ class Trashed_By_Test extends WP_UnitTestCase {
 		$this->assertTrue( class_exists( 'c2c_TrashedBy' ) );
 	}
 
+	public function test_hooks_init_for_register_meta() {
+		$this->assertEquals( 10, has_action( 'init', array( 'c2c_TrashedBy', 'register_meta' ) ) );
+	}
+
 	public function test_meta_keys_not_created_for_post_not_trashed() {
 		$author_id = $this->create_user( false );
 		$post_id   = $this->factory->post->create( array( 'post_status' => 'draft', 'post_author' => $author_id ) );

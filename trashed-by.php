@@ -104,7 +104,7 @@ class c2c_TrashedBy {
 		add_action( 'load-edit.php',               array( __CLASS__, 'add_admin_css' )                 );
 		add_action( 'transition_post_status',      array( __CLASS__, 'transition_post_status' ), 10, 3 );
 
-		self::register_meta();
+		add_action( 'init',                        array( __CLASS__, 'register_meta' ) );
 	}
 
 	/**
