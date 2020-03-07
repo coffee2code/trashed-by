@@ -127,23 +127,43 @@ class c2c_TrashedBy {
 	 * @since 1.1
 	 */
 	public static function register_meta() {
-		register_meta( 'post', self::$meta_key_user, array(
-			'type'              => 'integer',
-			'description'       => __( 'The user who trashed the post', 'trashed-by' ),
+		$default = array(
 			'single'            => true,
-			'sanitize_callback' => 'absint',
-			'auth_callback'     => '__return_false',
+			'auth_callback'     => function() {
+				return current_user_can( 'edit_posts' );
+			},
 			'show_in_rest'      => false,
-		) );
+		);
 
-		register_meta( 'post', self::$meta_key_date, array(
-			'type'              => 'integer',
-			'description'       => __( 'The date the post was trashed', 'trashed-by' ),
-			'single'            => true,
-			'sanitize_callback' => '',
-			'auth_callback'     => '__return_false',
-			'show_in_rest'      => false,
-		) );
+		$user_config = wp_parse_args(
+			array(
+				'type'              => 'integer',
+				'description'       => __( 'The user who trashed the post', 'trashed-by' ),
+				'sanitize_callback' => 'absint',
+			),
+			$default
+		);
+
+		$date_config = wp_parse_args(
+			array(
+				'type'              => 'string',
+				'description'       => __( 'The date the post was trashed', 'trashed-by' ),
+				'sanitize_callback' => function ( $value ) {
+					return $value;
+				},
+			),
+			$default
+		);
+
+		if ( function_exists( 'register_post_meta' ) ) {
+			register_post_meta( 'post', self::$meta_key_user, $user_config );
+			register_post_meta( 'post', self::$meta_key_date, $date_config );
+		}
+		// Pre WP 4.9.8 support
+		else {
+			register_meta( 'post', self::$meta_key_user, $user_config );
+			register_meta( 'post', self::$meta_key_date, $date_config );
+		}
 	}
 
 	/**

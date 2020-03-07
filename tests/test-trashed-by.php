@@ -17,6 +17,8 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
+		c2c_TrashedBy::register_meta();
+
 		/** @var WP_REST_Server $wp_rest_server */
 		global $wp_rest_server;
 		$this->server = $wp_rest_server = new \WP_REST_Server;
@@ -255,8 +257,11 @@ class Trashed_By_Test extends WP_UnitTestCase {
 
 
 	public function test_meta_are_registered() {
-		$this->assertTrue( registered_meta_key_exists( 'post', self::$meta_key_user ) );
-		$this->assertTrue( registered_meta_key_exists( 'post', self::$meta_key_date ) );
+		$this->assertTrue( registered_meta_key_exists( 'post', self::$meta_key_user, 'post' ) );
+		$this->assertTrue( registered_meta_key_exists( 'post', self::$meta_key_date, 'post' ) );
+
+		$this->assertFalse( registered_meta_key_exists( 'secret', self::$meta_key_user, 'post' ) );
+		$this->assertFalse( registered_meta_key_exists( 'secret', self::$meta_key_date, 'post' ) );
 	}
 
 	/**
