@@ -10,6 +10,7 @@
 * Change: Prevent object instantiation of the class
 * Unit tests:
     * Change: Update unit test install script and bootstrap to use latest WP unit test repo
+    * Change: Add test and data provider for default hooks that should get hooked
 * Change: Note compatibility through WP 5.3+
 * Change: Drop compatibility with version of WP older than 4.9
 * Change: Split paragraph in README.md's "Support" section into two

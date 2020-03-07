@@ -36,6 +36,16 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	//
 
 
+	public static function get_default_hooks() {
+		return array(
+			array( 'action', 'manage_posts_columns',       'add_post_column',        10 ),
+			array( 'action', 'manage_posts_custom_column', 'handle_column_data',     10 ),
+			array( 'filter', 'load-edit.php',              'add_admin_css',          10 ),
+			array( 'action', 'transition_post_status',     'transition_post_status', 10 ),
+			array( 'action', 'init',                       'register_meta',          10 ),
+		);
+	}
+
 	public static function get_metas() {
 		return array(
 			array( self::$meta_key_user ),
@@ -106,14 +116,28 @@ class Trashed_By_Test extends WP_UnitTestCase {
 		$this->assertTrue( class_exists( 'c2c_TrashedBy' ) );
 	}
 
-	public function test_hooks_init_for_register_meta() {
-		$this->assertEquals( 10, has_action( 'init', array( 'c2c_TrashedBy', 'register_meta' ) ) );
-	}
-
 	public function test_instantiating_object_fails() {
 		$this->setExpectedException( 'error' );
 
 		new c2c_TrashedBy;
+	}
+
+	public function test_plugins_loaded_action_triggers_init() {
+		$this->assertEquals( 10, has_action( 'plugins_loaded', array( 'c2c_TrashedBy', 'init' ) ) );
+	}
+
+	/**
+	 * @dataProvider get_default_hooks
+	 */
+	public function test_default_hooks( $hook_type, $hook, $function, $priority ) {
+		$callback = array( 'c2c_TrashedBy', $function );
+		$prio = $hook_type === 'action' ?
+			has_action( $hook, $callback ) :
+			has_filter( $hook, $callback );
+		$this->assertNotFalse( $prio );
+		if ( $priority ) {
+			$this->assertEquals( $priority, $prio );
+		}
 	}
 
 	public function test_meta_keys_not_created_for_post_not_trashed() {
