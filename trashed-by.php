@@ -78,6 +78,20 @@ class c2c_TrashedBy {
 	private static $field_date    = 'trashed_on';
 
 	/**
+	 * Prevents instantiation.
+	 *
+	 * @since 1.3
+	 */
+	private function __construct() {}
+
+	/**
+	 * Prevents unserializing an instance.
+	 *
+	 * @since 1.3
+	 */
+	private function __wakeup() {}
+
+	/**
 	 * Returns version of the plugin.
 	 *
 	 * @since 1.0
