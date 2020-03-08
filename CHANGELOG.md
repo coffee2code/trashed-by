@@ -11,6 +11,7 @@
     * Change: Prefer registering meta via `register_post_meta()` when available
     * Change: Register meta on `init` action instead of `plugins_loaded`
 * Change: Prevent object instantiation of the class
+* Change: Remove duplicate hook registrations
 * Unit tests:
     * Change: Update unit test install script and bootstrap to use latest WP unit test repo
     * Change: Add test and data provider for default hooks that should get hooked
