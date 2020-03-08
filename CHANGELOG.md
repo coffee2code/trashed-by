@@ -13,6 +13,7 @@
 * Change: Prevent object instantiation of the class
 * Change: Remove duplicate hook registrations
 * Unit tests:
+    * New: Added more unit tests
     * Change: Update unit test install script and bootstrap to use latest WP unit test repo
     * Change: Add test and data provider for default hooks that should get hooked
 * Change: Note compatibility through WP 5.3+

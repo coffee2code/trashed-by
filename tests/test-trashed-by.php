@@ -267,12 +267,21 @@ class Trashed_By_Test extends WP_UnitTestCase {
 
 
 	public function test_get_user_url() {
-		$this->assertEquals( self_admin_url( 'user-edit.php?user_id=2' ), c2c_TrashedBy::get_user_url( 2 ) );
-		$this->assertEquals( self_admin_url( 'user-edit.php?user_id=3' ), c2c_TrashedBy::get_user_url( '3' ) );
+		$user_id = $this->create_user( false );
+
+		$this->assertEquals( self_admin_url( 'user-edit.php?user_id=' . $user_id ), c2c_TrashedBy::get_user_url( $user_id ) );
+		$this->assertEquals( self_admin_url( 'user-edit.php?user_id=' . $user_id ), c2c_TrashedBy::get_user_url( "{$user_id}" ) );
 	}
 
+	// @todo: This test should actually fail as-is seeing as how the user IDs aren't valid.
 	public function test_get_user_url_with_invalid_user_id() {
+		$this->assertEquals( self_admin_url( 'user-edit.php?user_id=20' ), c2c_TrashedBy::get_user_url( 20 ) );
+		$this->assertEquals( self_admin_url( 'user-edit.php?user_id=30' ), c2c_TrashedBy::get_user_url( '30' ) );
+	}
+
+	public function test_get_user_url_with_invalid_arguments() {
 		$this->assertEmpty( c2c_TrashedBy::get_user_url( 0 ) );
+		$this->assertEmpty( c2c_TrashedBy::get_user_url( '' ) );
 		$this->assertEmpty( c2c_TrashedBy::get_user_url( 'hello' ) );
 	}
 

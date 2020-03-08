@@ -221,9 +221,13 @@ class c2c_TrashedBy {
 	 * @return string
 	 */
 	public static function get_user_url( $user_id ) {
+		$url = '';
+
 		if ( (int) $user_id ) {
-			return self_admin_url( 'user-edit.php?user_id=' . (int) $user_id );
+			$url = self_admin_url( 'user-edit.php?user_id=' . (int) $user_id );
 		}
+
+		return $url;
 	}
 
 	/**
