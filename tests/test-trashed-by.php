@@ -42,6 +42,7 @@ class Trashed_By_Test extends WP_UnitTestCase {
 			array( 'action', 'manage_posts_custom_column', 'handle_column_data',     10 ),
 			array( 'filter', 'load-edit.php',              'add_admin_css',          10 ),
 			array( 'action', 'transition_post_status',     'transition_post_status', 10 ),
+			array( 'action', 'is_protected_meta',          'is_protected_meta',      10 ),
 			array( 'action', 'init',                       'register_meta',          10 ),
 		);
 	}
@@ -273,6 +274,25 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	public function test_get_user_url_with_invalid_user_id() {
 		$this->assertEmpty( c2c_TrashedBy::get_user_url( 0 ) );
 		$this->assertEmpty( c2c_TrashedBy::get_user_url( 'hello' ) );
+	}
+
+	/*
+	 * c2c_TrashedBy::is_protected_meta()
+	 */
+
+	public function test_is_protected_meta_does_not_affect_unrelated_meta() {
+		$this->assertFalse( c2c_TrashedBy::is_protected_meta( false, 'meta1' ) );
+		$this->assertTrue( c2c_TrashedBy::is_protected_meta( true, 'meta2' ) );
+	}
+
+	/**
+	 * @dataProvider get_metas
+	 */
+	public function test_is_protected_meta_protects_plugin_meta() {
+		$this->assertTrue( c2c_TrashedBy::is_protected_meta( true, self::$meta_key_user ) );
+		$this->assertTrue( c2c_TrashedBy::is_protected_meta( true, self::$meta_key_date ) );
+		$this->assertTrue( c2c_TrashedBy::is_protected_meta( false, self::$meta_key_user ) );
+		$this->assertTrue( c2c_TrashedBy::is_protected_meta( false, self::$meta_key_date ) );
 	}
 
 	/*

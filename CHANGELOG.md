@@ -5,8 +5,11 @@
 * New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add more items to the list)
 * New: Add .gitignore file
 * New: Add link to plugin's page in Plugin Directory to README.md
-* Change: Update `register_meta()` with a proper auth_callback, prefer `register_post_meta()` when available
-* Change: Register meta on `init` action instead of `plugins_loaded`
+* Improve meta key handling:
+    * New: Add `is_protected_meta()` to protect the meta key from being exposed as a custom field
+    * Change: Update `register_meta()` with a proper auth_callback
+    * Change: Prefer registering meta via `register_post_meta()` when available
+    * Change: Register meta on `init` action instead of `plugins_loaded`
 * Change: Prevent object instantiation of the class
 * Unit tests:
     * Change: Update unit test install script and bootstrap to use latest WP unit test repo

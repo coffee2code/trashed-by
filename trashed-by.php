@@ -118,7 +118,8 @@ class c2c_TrashedBy {
 		add_action( 'load-edit.php',               array( __CLASS__, 'add_admin_css' )                 );
 		add_action( 'transition_post_status',      array( __CLASS__, 'transition_post_status' ), 10, 3 );
 
-		add_action( 'init',                        array( __CLASS__, 'register_meta' ) );
+		add_action( 'init',                        array( __CLASS__, 'register_meta' )                 );
+		add_filter( 'is_protected_meta',           array( __CLASS__, 'is_protected_meta' ),      10, 2 );
 	}
 
 	/**
@@ -164,6 +165,19 @@ class c2c_TrashedBy {
 			register_meta( 'post', self::$meta_key_user, $user_config );
 			register_meta( 'post', self::$meta_key_date, $date_config );
 		}
+	}
+
+	/**
+	 * Hides the meta key from the custom field dropdown.
+	 *
+	 * @since 1.3
+	 *
+	 * @param  bool   $protected Is the meta key protected?
+	 * @param  string $meta_key  The meta key.
+	 * @return bool True if meta key is protected, else false.
+	 */
+	public static function is_protected_meta( $protected, $meta_key ) {
+		return in_array( $meta_key, array( self::$meta_key_date, self::$meta_key_user ) ) ? true : $protected;
 	}
 
 	/**
