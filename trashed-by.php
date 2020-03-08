@@ -186,7 +186,7 @@ class c2c_TrashedBy {
 	 * @return bool
 	 */
 	private static function include_column() {
-		return ( isset( $_GET['post_status'] ) && 'trash' == $_GET['post_status'] );
+		return ( isset( $_GET['post_status'] ) && 'trash' === $_GET['post_status'] );
 	}
 
 	/**
