@@ -17,6 +17,7 @@
     * Change: Add test and data provider for default hooks that should get hooked
 * Change: Note compatibility through WP 5.3+
 * Change: Drop compatibility with version of WP older than 4.9
+* Change: Add inline documentation reference for a filter that originates in WP
 * Change: Split paragraph in README.md's "Support" section into two
 * Change: Update copyright date (2020)
 
