@@ -10,6 +10,7 @@
     * Change: Update `register_meta()` with a proper auth_callback
     * Change: Prefer registering meta via `register_post_meta()` when available
     * Change: Register meta on `init` action instead of `plugins_loaded`
+* Change: Omit 'type' attribute for 'style' tag
 * Change: Prevent object instantiation of the class
 * Change: Remove duplicate hook registrations
 * Unit tests:

@@ -295,7 +295,7 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	public function tests_admin_css() {
 		$this->expectOutputRegex(
 			// Testing the actual styles is not important.
-			"~^<style type='text/css'>.fixed .column-trashed_by, .fixed .column-trashed_on { .+ }</style>$~",
+			'~^<style>.fixed .column-trashed_by, .fixed .column-trashed_on { .+ }</style>$~',
 			c2c_TrashedBy::admin_css()
 		);
 	}

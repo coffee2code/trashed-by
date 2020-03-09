@@ -209,7 +209,7 @@ class c2c_TrashedBy {
 	 * @since 1.0
 	 */
 	public static function admin_css() {
-		echo "<style type='text/css'>.fixed .column-" . self::$field_user . ", .fixed .column-" . self::$field_date . " { width: 10%; }</style>\n";
+		echo '<style>.fixed .column-' . self::$field_user . ', .fixed .column-' . self::$field_date . " { width: 10%; }</style>\n";
 	}
 
 	/**
