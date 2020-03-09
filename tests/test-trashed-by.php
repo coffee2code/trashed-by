@@ -260,11 +260,37 @@ class Trashed_By_Test extends WP_UnitTestCase {
 		$this->assertNotEmpty( c2c_TrashedBy::get_trashed_on( $post_id ) );
 	}
 
+	/*
+	 * c2c_TrashedBy::add_admin_css()
+	 */
+
+	public function test_admin_head_is_not_hooked_when_not_applicable() {
+		c2c_TrashedBy::add_admin_css();
+		$this->assertFalse( has_action( 'admin_head', array( 'c2c_TrashedBy', 'admin_css' ) ) );
+
+		$_GET = array();
+		c2c_TrashedBy::add_admin_css();
+		$this->assertFalse( has_action( 'admin_head', array( 'c2c_TrashedBy', 'admin_css' ) ) );
+
+		$_GET['post_status'] = 'pending';
+		c2c_TrashedBy::add_admin_css();
+		$this->assertFalse( has_action( 'admin_head', array( 'c2c_TrashedBy', 'admin_css' ) ) );
+
+		$_GET['post_status'] = 'publish';
+		c2c_TrashedBy::add_admin_css();
+		$this->assertFalse( has_action( 'admin_head', array( 'c2c_TrashedBy', 'admin_css' ) ) );
+	}
+
+	public function test_include_column_is_true_for_trash() {
+		$_GET['post_status'] = 'trash';
+		c2c_TrashedBy::add_admin_css();
+
+		$this->assertEquals( 10, has_action( 'admin_head', array( 'c2c_TrashedBy', 'admin_css' ) ) );
+	}
 
 	/*
 	 * c2c_TrashedBy::get_user_url()
 	 */
-
 
 	public function test_get_user_url() {
 		$user_id = $this->create_user( false );
