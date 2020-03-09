@@ -38,11 +38,11 @@ class Trashed_By_Test extends WP_UnitTestCase {
 
 	public static function get_default_hooks() {
 		return array(
-			array( 'action', 'manage_posts_columns',       'add_post_column',        10 ),
+			array( 'filter', 'manage_posts_columns',       'add_post_column',        10 ),
 			array( 'action', 'manage_posts_custom_column', 'handle_column_data',     10 ),
-			array( 'filter', 'load-edit.php',              'add_admin_css',          10 ),
+			array( 'action', 'load-edit.php',              'add_admin_css',          10 ),
 			array( 'action', 'transition_post_status',     'transition_post_status', 10 ),
-			array( 'action', 'is_protected_meta',          'is_protected_meta',      10 ),
+			array( 'filter', 'is_protected_meta',          'is_protected_meta',      10 ),
 			array( 'action', 'init',                       'register_meta',          10 ),
 		);
 	}
