@@ -131,7 +131,7 @@ class c2c_TrashedBy {
 			'auth_callback'     => function() {
 				return current_user_can( 'edit_posts' );
 			},
-			'show_in_rest'      => false,
+			'show_in_rest'      => true,
 		);
 
 		$user_config = wp_parse_args(

@@ -380,8 +380,13 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	 */
 	public function test_rest_post_request_does_not_include_meta( $meta_key ) {
 		$author_id = $this->create_user( false );
-		$post_id = $this->factory->post->create( array( 'post_status' => 'publish', 'post_author' => $author_id ) );
-		add_post_meta( $post_id, $meta_key, $author_id );
+		$trasher_id = $this->create_user( false );
+		$post_id = $this->factory->post->create( array( 'post_status' => 'publish', 'post_author' => $author_id, 'post_date' => '2020-02-05 19:45:06' ) );
+
+		$trashed_on = '2020-03-02 14:12:11';
+
+		add_post_meta( $post_id, self::$meta_key_user, $trasher_id );
+		add_post_meta( $post_id, self::$meta_key_date, $trashed_on );
 
 		$request = new WP_REST_Request( 'GET', sprintf( '/wp/v2/posts/%d', $post_id ) );
 		$response = $this->server->dispatch( $request );
@@ -392,7 +397,9 @@ class Trashed_By_Test extends WP_UnitTestCase {
 		$this->assertArrayHasKey( 'meta', $data );
 
 		$meta = (array) $data['meta'];
-		$this->assertArrayNotHasKey( $meta_key, $meta );
-//		$this->assertEquals( $author_id, $meta[ $meta_key ] );
+
+		$this->assertArrayHasKey( $meta_key, $meta );
+
+		$this->assertEquals( ( 'c2c-trashed-by' === $meta_key ) ? $trasher_id : $trashed_on, $meta[ $meta_key ] );
 	}
 }
