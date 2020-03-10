@@ -301,6 +301,26 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * c2c_TrashedBy::add_post_column()
+	 */
+
+	public function test_add_post_column_does_not_add_when_not_appropriate() {
+		$this->assertEmpty( c2c_TrashedBy::add_post_column( array() ) );
+		$_GET['post_status'] = 'draft';
+		$this->assertEmpty( c2c_TrashedBy::add_post_column( array() ) );
+	}
+
+	public function test_add_post_column_adds_when_appropriate() {
+		$_GET['post_status'] = 'trash';
+		$expected = array(
+			'trashed_by' => 'Trashed By',
+			'trashed_on' => 'Trashed On',
+		);
+
+		$this->assertEquals( $expected, c2c_TrashedBy::add_post_column( array() ) );
+	}
+
+	/*
 	 * c2c_TrashedBy::get_user_url()
 	 */
 
