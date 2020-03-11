@@ -266,7 +266,7 @@ class c2c_TrashedBy {
 			$trasher_id = self::get_trasher_id( $post_id );
 			if ( $trasher_id ) {
 				if ( get_current_user_id() === $trasher_id ) {
-					$user_link = '<span>you</span>';
+					$user_link = '<span>' . __( 'you', 'trashed-by' ) . '</span>';
 				} else {
 					$trasher = get_userdata( $trasher_id );
 					$user_link = sprintf(

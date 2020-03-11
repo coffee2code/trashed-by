@@ -14,6 +14,7 @@
 * Change: Omit 'type' attribute for 'style' tag
 * Change: Prevent object instantiation of the class
 * Change: Remove duplicate hook registrations
+* Change: Allow string "you" to be translated
 * Unit tests:
     * New: Added more unit tests
     * Change: Update unit test install script and bootstrap to use latest WP unit test repo
