@@ -16,7 +16,7 @@
 * Change: Remove duplicate hook registrations
 * Change: Allow string "you" to be translated
 * Unit tests:
-    * New: Added more unit tests
+    * New: Add more unit tests
     * Change: Update unit test install script and bootstrap to use latest WP unit test repo
     * Change: Add test and data provider for default hooks that should get hooked
     * Change: Allow `create_user()` to accept an array argument of user attributes
