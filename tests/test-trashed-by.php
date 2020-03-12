@@ -60,8 +60,8 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	//
 
 
-	private function create_user( $set_as_current = true ) {
-		$user_id = $this->factory->user->create();
+	private function create_user( $set_as_current = true, $user_args = array() ) {
+		$user_id = $this->factory->user->create( $user_args );
 		if ( $set_as_current ) {
 			wp_set_current_user( $user_id );
 		}

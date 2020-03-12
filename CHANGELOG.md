@@ -19,6 +19,7 @@
     * New: Added more unit tests
     * Change: Update unit test install script and bootstrap to use latest WP unit test repo
     * Change: Add test and data provider for default hooks that should get hooked
+    * Change: Allow `create_user()` to accept an array argument of user attributes
 * Change: Note compatibility through WP 5.3+
 * Change: Drop compatibility with version of WP older than 4.9
 * Change: Add inline documentation reference for a filter that originates in WP
