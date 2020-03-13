@@ -321,6 +321,84 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * c2c_TrashedBy::handle_column_data()
+	 */
+
+	public function test_handle_column_data_output_nothing_for_unrelated_columns() {
+		$_GET['post_status'] = 'trash';
+		$post_id  = $this->factory->post->create( array( 'post_status' => 'trash' ) );
+		$user_id  = $this->create_user( array( 'role' => 'author' ) );
+		$date     = '2020-03-01 12:13:14';
+
+		// Set the custom field, as if it had been set on a previous publish
+		$this->set_trashed_by( $post_id, $user_id, $date );
+
+		$this->expectOutputRegex( '/^$/', c2c_TrashedBy::handle_column_data( 'date', $post_id ) );
+	}
+
+	public function test_handle_column_data_output_nothing_for_column_when_post_not_trashed() {
+		$_GET['post_status'] = 'publish';
+		$post_id  = $this->factory->post->create( array( 'post_status' => 'publish' ) );
+		$user_id  = $this->create_user( array( 'role' => 'author' ) );
+		$date     = '2020-03-01 12:13:14';
+
+		// Set the custom field, as if it had been set on a previous publish
+		$this->set_trashed_by( $post_id, $user_id, $date );
+
+		$this->expectOutputRegex( '/^$/', c2c_TrashedBy::handle_column_data( 'trashed_by', $post_id ) );
+	}
+
+	public function test_handle_column_data_outputs_trashed_by_value_for_its_column_for_non_current_user() {
+		$_GET['post_status'] = 'trash';
+		$post_id  = $this->factory->post->create( array( 'post_status' => 'trash' ) );
+		$user_id  = $this->create_user( false, array( 'display_name' => 'Matt Smith', 'role' => 'author' ) );
+		$date     = '2020-03-01 12:13:14';
+
+		// Set the custom field, as if it had been set on a previous publish
+		$this->set_trashed_by( $post_id, $user_id, $date );
+
+		$user_link = sprintf(
+			'<a href="%s">%s</a>',
+			esc_url( c2c_TrashedBy::get_user_url( $user_id ) ),
+			'Matt Smith'
+		);
+
+		$this->expectOutputRegex( '~^' . preg_quote( $user_link ) . '$~', c2c_TrashedBy::handle_column_data( 'trashed_by', $post_id ) );
+	}
+
+	public function test_handle_column_data_outputs_trashed_by_value_for_its_column_for_current_user() {
+		$_GET['post_status'] = 'trash';
+		$post_id  = $this->factory->post->create( array( 'post_status' => 'trash' ) );
+		$user_id  = $this->create_user( true, array( 'display_name' => 'Matt Smith', 'role' => 'author' ) );
+		$date     = '2020-03-01 12:13:14';
+
+		// Set the custom field, as if it had been set on a previous publish
+		$this->set_trashed_by( $post_id, $user_id, $date );
+
+		$user_link = '<span>you</span>';
+
+		$this->expectOutputRegex( '~^' . preg_quote( $user_link ) . '$~', c2c_TrashedBy::handle_column_data( 'trashed_by', $post_id ) );
+	}
+
+	public function test_handle_column_data_outputs_trashed_on_value_for_its_column() {
+		$_GET['post_status'] = 'trash';
+		$post_id  = $this->factory->post->create( array( 'post_status' => 'trash' ) );
+		$user_id  = $this->create_user( false, array( 'display_name' => 'Matt Smith', 'role' => 'author' ) );
+		$date     = '2020-03-01 12:13:14';
+
+		// Set the custom field, as if it had been set on a previous publish
+		$this->set_trashed_by( $post_id, $user_id, $date );
+
+		$date_link = sprintf(
+			'<abbr title="%s">%s</abbr>',
+			'2020/03/01 12:13:14 PM',
+			'2020/03/01'
+		);
+
+		$this->expectOutputRegex( '~^' . preg_quote( $date_link ) . '$~', c2c_TrashedBy::handle_column_data( 'trashed_on', $post_id ) );
+	}
+
+	/*
 	 * c2c_TrashedBy::get_user_url()
 	 */
 
