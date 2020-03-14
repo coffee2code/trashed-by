@@ -76,11 +76,11 @@ class Trashed_By_Test extends WP_UnitTestCase {
     }
 
 	private function set_trashed_by( $post_id, $user_id = '', $date = null ) {
-		add_post_meta( $post_id, self::$meta_key_user, $user_id );
+		update_post_meta( $post_id, self::$meta_key_user, $user_id );
 		if ( empty( $date ) ) {
 			$date = current_time( 'mysql' );
 		}
-		add_post_meta( $post_id, self::$meta_key_date, $date );
+		update_post_meta( $post_id, self::$meta_key_date, $date );
 	}
 
 
