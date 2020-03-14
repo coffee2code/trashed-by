@@ -209,9 +209,9 @@ class Trashed_By_Test extends WP_UnitTestCase {
 		$user_id   = $this->create_user();
 
 		$this->assertEmpty( c2c_TrashedBy::get_trasher_id( $post_id ) );
-		$this->assertEmpty( c2c_TrashedBy::get_trashed_on( $post_id ) );
+		$this->assertNotEmpty( c2c_TrashedBy::get_trashed_on( $post_id ) );
 		$this->assertEmpty( get_post_meta( $post_id, self::$meta_key_user, true ) );
-		$this->assertEmpty( get_post_meta( $post_id, self::$meta_key_date, true ) );
+		$this->assertNotEmpty( get_post_meta( $post_id, self::$meta_key_date, true ) );
 	}
 
 	public function test_blank_is_returned_if_not_trash() {
@@ -476,8 +476,12 @@ class Trashed_By_Test extends WP_UnitTestCase {
 
 	public function test_get_trashed_on_for_trashed_post_without_meta() {
 		$post_id  = $this->factory->post->create( array( 'post_status' => 'trash' ) );
+		$date = current_time( 'mysql' );
 
-		$this->assertEmpty( c2c_TrashedBy::get_trashed_on( $post_id ) );
+		$this->assertNotEmpty( c2c_TrashedBy::get_trashed_on( $post_id ) );
+		// Note: The expected date may actually differ from the actual date by a
+		// second, so this assertion may actual fail on occasion.
+		$this->assertEquals( $date, c2c_TrashedBy::get_trashed_on( $post_id ) );
 	}
 
 	public function test_get_trashed_on_for_trashed_post_with_meta() {

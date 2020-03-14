@@ -319,8 +319,8 @@ class c2c_TrashedBy {
 			// Can only save trashing user ID if one can be obtained
 			if ( $current_user_id = get_current_user_id() ) {
 				update_post_meta( $post->ID, self::$meta_key_user, $current_user_id );
-				update_post_meta( $post->ID, self::$meta_key_date, current_time( 'mysql' ) );
 			}
+			update_post_meta( $post->ID, self::$meta_key_date, current_time( 'mysql' ) );
 
 		// Clear trashing user and date when being untrashed
 		} elseif ( 'trash' === $old_status ) {
