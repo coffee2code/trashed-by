@@ -471,6 +471,55 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * c2c_TrashedBy::get_trashed_on()
+	 */
+
+	public function test_get_trashed_on_for_trashed_post_without_meta() {
+		$post_id  = $this->factory->post->create( array( 'post_status' => 'trash' ) );
+
+		$this->assertEmpty( c2c_TrashedBy::get_trashed_on( $post_id ) );
+	}
+
+	public function test_get_trashed_on_for_trashed_post_with_meta() {
+		$post_id  = $this->factory->post->create( array( 'post_status' => 'trash' ) );
+		$user_id  = $this->create_user( false, array( 'display_name' => 'Matt Smith', 'role' => 'author' ) );
+		$date     = '2020-03-01 12:13:14';
+
+		// Set the custom field, as if it had been set on a previous publish
+		$this->set_trashed_by( $post_id, $user_id, $date );
+
+		$this->assertEquals( $date, c2c_TrashedBy::get_trashed_on( $post_id ) );
+	}
+
+	public function test_get_trashed_on_for_trashed_post_via_object_with_meta() {
+		$post     = $this->factory->post->create_and_get( array( 'post_status' => 'trash' ) );
+		$user_id  = $this->create_user( false, array( 'display_name' => 'Matt Smith', 'role' => 'author' ) );
+		$date     = '2020-03-01 12:13:14';
+
+		// Set the custom field, as if it had been set on a previous publish
+		$this->set_trashed_by( $post->ID, $user_id, $date );
+
+		$this->assertEquals( $date, c2c_TrashedBy::get_trashed_on( $post ) );
+	}
+
+	public function test_get_trashed_on_for_draft_post_without_meta() {
+		$post_id  = $this->factory->post->create( array( 'post_status' => 'publish' ) );
+
+		$this->assertEmpty( c2c_TrashedBy::get_trashed_on( $post_id ) );
+	}
+
+	public function test_get_trashed_on_for_draft_post_with_meta() {
+		$post_id  = $this->factory->post->create( array( 'post_status' => 'publish' ) );
+		$user_id  = $this->create_user( false, array( 'display_name' => 'Matt Smith', 'role' => 'author' ) );
+		$date     = '2020-03-01 12:13:14';
+
+		// Set the custom field, as if it had been set on a previous publish
+		$this->set_trashed_by( $post_id, $user_id, $date );
+
+		$this->assertEmpty( c2c_TrashedBy::get_trashed_on( $post_id ) );
+	}
+
+	/*
 	 * c2c_TrashedBy::is_protected_meta()
 	 */
 
