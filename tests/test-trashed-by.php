@@ -520,6 +520,48 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * c2c_TrashedBy::transition_post_status()
+	 */
+
+	public function test_transition_post_status_ignore_transitions_not_involving_trash() {
+		$post = $this->factory->post->create_and_get( array( 'post_status' => 'publish' ) );
+
+		c2c_TrashedBy::transition_post_status( 'publish', 'draft', $post );
+
+		$this->assertFalse( metadata_exists( 'post', $post->ID, self::$meta_key_user ) );
+		$this->assertFalse( metadata_exists( 'post', $post->ID, self::$meta_key_date ) );
+	}
+
+	public function test_transition_post_status_deletes_meta_when_post_is_untrashed() {
+		$post    = $this->factory->post->create_and_get( array( 'post_status' => 'trash' ) );
+		$user_id = $this->create_user( false, array( 'display_name' => 'Matt Smith', 'role' => 'author' ) );
+		$date    = '2020-03-01 12:13:14';
+
+		// Set the custom field, as if it had been set on a previous publish
+		$this->set_trashed_by( $post->ID, $user_id, $date );
+
+		c2c_TrashedBy::transition_post_status( 'draft', 'trash', $post );
+
+		$this->assertFalse( metadata_exists( 'post', $post->ID, self::$meta_key_user ) );
+		$this->assertFalse( metadata_exists( 'post', $post->ID, self::$meta_key_date ) );
+	}
+
+	public function test_transition_post_status_adds_meta_when_post_is_trashed() {
+		$post    = $this->factory->post->create_and_get( array( 'post_status' => 'publish' ) );
+		$user_id = $this->create_user();
+
+		c2c_TrashedBy::transition_post_status( 'trash', 'publish', $post );
+		$date = current_time( 'mysql' );
+
+		$this->assertTrue( metadata_exists( 'post', $post->ID, self::$meta_key_user ) );
+		$this->assertEquals( $user_id, get_post_meta( $post->ID, self::$meta_key_user, true ) );
+		$this->assertTrue( metadata_exists( 'post', $post->ID, self::$meta_key_date ) );
+		// Note: The expected date may actually differ from the actual date by a
+		// second, so this assertion may actual fail on occasion.
+		$this->assertEquals( $date, get_post_meta( $post->ID, self::$meta_key_date, true ) );
+	}
+
+	/*
 	 * c2c_TrashedBy::is_protected_meta()
 	 */
 
