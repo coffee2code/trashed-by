@@ -333,7 +333,9 @@ class c2c_TrashedBy {
 	 * Returns the ID of the user who trashed the post.
 	 *
 	 * Note: Makes no attempt to guess who deleted a post that was deleted
-	 * while this plugin was not active (e.g. all pre-existing posts).
+	 * while this plugin was not active (e.g. all pre-existing posts). Also
+	 * does not return the meta field value, if present, if the post isn't
+	 * currently in the trash.
 	 *
 	 * @since 1.0
 	 *
@@ -354,6 +356,11 @@ class c2c_TrashedBy {
 
 	/**
 	 * Returns the date the post was trashed.
+	 *
+	 * Note: Makes no attempt to guess when the post was deleted if that post
+	 * was deleted while this plugin was not active (e.g. all pre-existing
+	 * posts). Also does not return the meta field value, if present, if the
+	 * post isn't currently in the trash.
 	 *
 	 * @since 1.0
 	 *
