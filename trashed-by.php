@@ -339,16 +339,16 @@ class c2c_TrashedBy {
 	 *
 	 * @since 1.0
 	 *
-	 * @param  int $post_id The id of the post being displayed.
+	 * @param  int|WP_Post|null $post Post ID, object, or null for current post.
 	 * @return int The ID of the user who trashed the post.
 	 */
-	public static function get_trasher_id( $post_id ) {
+	public static function get_trasher_id( $post ) {
 		$trasher_id = 0;
-		$post       = get_post( $post_id );
+		$post       = get_post( $post );
 
-		if ( $post && 'trash' === get_post_status( $post_id ) ) {
+		if ( $post && 'trash' === get_post_status( $post ) ) {
 			// Use trasher id saved in custom field by the plugin.
-			$trasher_id = get_post_meta( $post_id, self::$meta_key_user, true );
+			$trasher_id = get_post_meta( $post->ID, self::$meta_key_user, true );
 		}
 
 		return (int) $trasher_id;
@@ -364,16 +364,16 @@ class c2c_TrashedBy {
 	 *
 	 * @since 1.0
 	 *
-	 * @param  int    $post_id The id of the post being displayed.
+	 * @param  int|WP_Post|null $post Post ID, object, or null for current post.
 	 * @return string The datetime string for when the post was trashed.
 	 */
-	public static function get_trashed_on( $post_id ) {
+	public static function get_trashed_on( $post ) {
 		$trashed_on = '';
-		$post       = get_post( $post_id );
+		$post       = get_post( $post );
 
-		if ( $post && 'trash' === get_post_status( $post_id ) ) {
+		if ( $post && 'trash' === get_post_status( $post ) ) {
 			// Use trashed date saved in custom field by the plugin.
-			$trashed_on = get_post_meta( $post_id, self::$meta_key_date, true );
+			$trashed_on = get_post_meta( $post->ID, self::$meta_key_date, true );
 		}
 
 		return $trashed_on;

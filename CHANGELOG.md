@@ -13,6 +13,7 @@
 * Change: Record date post was trashed even if a current user can't be determined
 * Change: Expose custom field via REST API
 * Change: Omit 'type' attribute for 'style' tag
+* Change: Support a post object or null (for current post) being sent as the argument to `get_trasher_id()` and `get_trashed_on()`
 * Change: Prevent object instantiation of the class
 * Change: Remove duplicate hook registrations
 * Change: Allow string "you" to be translated
