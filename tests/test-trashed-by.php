@@ -453,6 +453,19 @@ class Trashed_By_Test extends WP_UnitTestCase {
 		$this->assertEquals( $user_id, c2c_TrashedBy::get_trasher_id( $post ) );
 	}
 
+	public function test_get_trasher_id_for_trashed_post_via_implied_global_post_object_with_meta() {
+		global $post;
+		$post     = $this->factory->post->create_and_get( array( 'post_status' => 'trash' ) );
+		$user_id  = $this->create_user( false, array( 'display_name' => 'Matt Smith', 'role' => 'author' ) );
+		$date     = '2020-03-01 12:13:14';
+
+		// Set the custom field, as if it had been set on a previous publish
+		$this->set_trashed_by( $post->ID, $user_id, $date );
+
+		$this->assertEquals( $user_id, c2c_TrashedBy::get_trasher_id() );
+		unset( $post );
+	}
+
 	public function test_get_trasher_id_for_draft_post_without_meta() {
 		$post_id  = $this->factory->post->create( array( 'post_status' => 'publish' ) );
 
@@ -504,6 +517,19 @@ class Trashed_By_Test extends WP_UnitTestCase {
 		$this->set_trashed_by( $post->ID, $user_id, $date );
 
 		$this->assertEquals( $date, c2c_TrashedBy::get_trashed_on( $post ) );
+	}
+
+	public function test_get_trashed_on_for_trashed_post_via_implied_global_object_with_meta() {
+		global $post;
+		$post     = $this->factory->post->create_and_get( array( 'post_status' => 'trash' ) );
+		$user_id  = $this->create_user( false, array( 'display_name' => 'Matt Smith', 'role' => 'author' ) );
+		$date     = '2020-03-01 12:13:14';
+
+		// Set the custom field, as if it had been set on a previous publish
+		$this->set_trashed_by( $post->ID, $user_id, $date );
+
+		$this->assertEquals( $date, c2c_TrashedBy::get_trashed_on() );
+		unset( $post );
 	}
 
 	public function test_get_trashed_on_for_draft_post_without_meta() {

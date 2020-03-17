@@ -342,7 +342,7 @@ class c2c_TrashedBy {
 	 * @param  int|WP_Post|null $post Post ID, object, or null for current post.
 	 * @return int The ID of the user who trashed the post.
 	 */
-	public static function get_trasher_id( $post ) {
+	public static function get_trasher_id( $post = null ) {
 		$trasher_id = 0;
 		$post       = get_post( $post );
 
@@ -367,7 +367,7 @@ class c2c_TrashedBy {
 	 * @param  int|WP_Post|null $post Post ID, object, or null for current post.
 	 * @return string The datetime string for when the post was trashed.
 	 */
-	public static function get_trashed_on( $post ) {
+	public static function get_trashed_on( $post = null ) {
 		$trashed_on = '';
 		$post       = get_post( $post );
 
