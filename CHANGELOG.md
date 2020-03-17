@@ -25,6 +25,7 @@
     * Change: Use `update_post_meta()` within `create_user()` instead of `add_post_meta()`
 * Change: Note compatibility through WP 5.3+
 * Change: Drop compatibility with version of WP older than 4.9
+* Change: Tweak plugin description
 * Change: Amend inline docs for `get_trasher_id()` and `get_trashed_on()` to indicate that meta values won't be returned, even if present, if post isn't in the trash
 * Change: Add inline documentation reference for a filter that originates in WP
 * Change: Split paragraph in README.md's "Support" section into two

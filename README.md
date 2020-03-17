@@ -1,6 +1,6 @@
 # Trashed By
 
-A plugin for WordPress that tracks the user who trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
+A plugin for WordPress that records which user trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
 
 This plugin is available in the WordPress Plugin Directory: https://wordpress.org/plugins/trashed-by/
 

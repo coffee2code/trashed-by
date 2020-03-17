@@ -8,7 +8,7 @@ Requires at least: 4.9
 Tested up to: 5.3
 Stable tag: 1.2
 
-Tracks the user who trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
+Records which user trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
 
 == Description ==
 

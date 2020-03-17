@@ -8,7 +8,7 @@
  * Text Domain: trashed-by
  * License:     GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Description: Tracks the user who trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
+ * Description: Records which user trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
  *
  * Compatible with WordPress 4.9 through 5.3+.
  *
