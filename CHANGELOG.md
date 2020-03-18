@@ -1,6 +1,6 @@
 # Changelog
 
-## _(in-progress)_
+## 1.3 _(2020-03-17)_
 * New: Add CHANGELOG.md and move all but most recent changelog entries into it
 * New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add more items to the list)
 * New: Add .gitignore file
