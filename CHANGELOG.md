@@ -13,7 +13,8 @@
 * Change: Record date post was trashed even if a current user can't be determined
 * Change: Expose custom field via REST API
 * Change: Omit 'type' attribute for 'style' tag
-* Change: Support a post object or null (for current post) being sent as the argument to `get_trasher_id()` and `get_trashed_on()`
+* Change: Add `get_trashed_by()` as the renamed replacement for the now-deprecated `get_trasher_id()`
+* Change: Support a post object or null (for current post) being sent as the argument to `get_trashed_by()` and `get_trashed_on()`
 * Change: Prevent object instantiation of the class
 * Change: Remove duplicate hook registrations
 * Change: Allow string "you" to be translated
@@ -26,7 +27,7 @@
 * Change: Note compatibility through WP 5.3+
 * Change: Drop compatibility with version of WP older than 4.9
 * Change: Tweak plugin description
-* Change: Amend inline docs for `get_trasher_id()` and `get_trashed_on()` to indicate that meta values won't be returned, even if present, if post isn't in the trash
+* Change: Amend inline docs for `get_trashed_by()` and `get_trashed_on()` to indicate that meta values won't be returned, even if present, if post isn't in the trash
 * Change: Add inline documentation reference for a filter that originates in WP
 * Change: Split paragraph in README.md's "Support" section into two
 * Change: Update copyright date (2020)

@@ -263,7 +263,7 @@ class c2c_TrashedBy {
 
 		// Display the username of the user who trashed the post.
 		if ( self::$field_user === $column_name ) {
-			$trasher_id = self::get_trasher_id( $post_id );
+			$trasher_id = self::get_trashed_by( $post_id );
 			if ( $trasher_id ) {
 				if ( get_current_user_id() === $trasher_id ) {
 					$user_link = '<span>' . __( 'you', 'trashed-by' ) . '</span>';
@@ -338,20 +338,36 @@ class c2c_TrashedBy {
 	 * currently in the trash.
 	 *
 	 * @since 1.0
+	 * @since 1.3 Renamed from `get_trasher_id()`
+	 *
+	 * @param  int|WP_Post|null $post Post ID, object, or null for current post.
+	 * @return int The ID of the user who trashed the post.
+	 */
+	public static function get_trashed_by( $post = null ) {
+		$trashed_by = 0;
+		$post       = get_post( $post );
+
+		if ( $post && 'trash' === get_post_status( $post ) ) {
+			// Use trasher id saved in custom field by the plugin.
+			$trashed_by = get_post_meta( $post->ID, self::$meta_key_user, true );
+		}
+
+		return (int) $trashed_by;
+	}
+
+	/**
+	 * DEPRECATED. Returns the ID of the user who trashed the post.
+	 *
+	 * @since 1.0
+	 * @deprecated 1.3 Use get_trashed_by() instead
 	 *
 	 * @param  int|WP_Post|null $post Post ID, object, or null for current post.
 	 * @return int The ID of the user who trashed the post.
 	 */
 	public static function get_trasher_id( $post = null ) {
-		$trasher_id = 0;
-		$post       = get_post( $post );
+		_deprecated_function( 'get_trasher_id', '1.3', 'get_trashed_by' );
 
-		if ( $post && 'trash' === get_post_status( $post ) ) {
-			// Use trasher id saved in custom field by the plugin.
-			$trasher_id = get_post_meta( $post->ID, self::$meta_key_user, true );
-		}
-
-		return (int) $trasher_id;
+		return self::get_trashed_by( $post );
 	}
 
 	/**
