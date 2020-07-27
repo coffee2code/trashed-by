@@ -52,7 +52,7 @@ No. Once a trashed post is restored and thus removed from the trash, the informa
 
 = Does this plugin track who permanently deleted a posted? =
 
-Just so everyone is clear, "Trashed" and "Permanently deleted" are two differently things.
+Just so everyone is clear, "Trashed" and "Permanently deleted" are two different things.
 
 Trashed posts get assigned a post status of "trash" and then only appear in the "Trash" list of the page/post area of the admin. These posts still exist, they're just hidden from public view. This operates like the trash feature in your operating system; you can still go into the trash to retrieve something before it is gone for good. As such, it is possible for the plugin to keep track of and report who trashed the post.
 
