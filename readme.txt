@@ -18,7 +18,7 @@ The admin listing of trashed posts is amended with new "Trashed By" and "Trashed
 
 The plugin makes no assumption about who trashed a post, or when, for posts that were trashed prior to the use of this plugin (since the plugin could not have directly recorded information about the post's trashing). The "Trashed By" and "Trashed On" values for those posts will remain empty. Put another way, only posts or pages trashed while this plugin is active will have the user who trashed the post/page and that date recorded.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/trashed-by/) | [Plugin Directory Page](https://wordpress.org/plugins/trashed-by/) | [GitHub](https://github.com/coffee2code/trashed-by/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](https://coffee2code.com/wp-plugins/trashed-by/) | [Plugin Directory Page](https://wordpress.org/plugins/trashed-by/) | [GitHub](https://github.com/coffee2code/trashed-by/) | [Author Homepage](https://coffee2code.com)
 
 
 == Installation ==
