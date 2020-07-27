@@ -1,4 +1,3 @@
-
 # TODO
 
 The following list comprises ideas, suggestions, and known issues, all of which are in consideration for possible implementation in future releases.
