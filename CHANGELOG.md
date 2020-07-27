@@ -4,6 +4,7 @@
 * Change: Note compatibility through WP 5.4+
 * Change: Update links to coffee2code.com to be HTTPS
 * Change: Fix typo in docs
+* Change: Remove a tag from readme.txt's 'Tags' field
 * Unit tests:
     * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests (and delete commented-out code)
 
