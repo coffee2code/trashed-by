@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
 Tested up to: 5.4
-Stable tag: 1.3
+Stable tag: 1.3.1
 
 Records which user trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
 
@@ -69,6 +69,13 @@ Yes.
 
 == Changelog ==
 
+## 1.3.1 _(2020-07-27)_
+* Change: Note compatibility through WP 5.4+
+* Change: Update links to coffee2code.com to be HTTPS
+* Change: Fix typo in docs
+* Change: Remove a tag from readme.txt's 'Tags' field
+* Unit tests: Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests (and delete commented-out code)
+
 = 1.3 (2020-03-17) =
 * New: Add CHANGELOG.md and move all but most recent changelog entries into it
 * New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add more items to the list)
@@ -109,19 +116,15 @@ Yes.
 * Change: Update copyright date (2019)
 * Change: Update License URI to be HTTPS
 
-= 1.1.1 (2017-12-27) =
-* New: Add README.md
-* Change: Add GitHub link to readme
-* Change: Note compatibility through WP 4.9+
-* Change: Update copyright date (2018)
-* Change: Minor code spacing in unit test bootstrap
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/trashed-by/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
 
-= 1.3=
+= 1.3.1 =
+Trivial update: Updated a few URLs to be HTTPS and noted compatibility through WP 5.4+.
+
+= 1.3 =
 Recommended minor update: improved meta key handling, added a lot more unit tests, added CHANGELOG.md, added TODO.md, noted compatibility through WP 5.3+, dropped compatibility with versions of WP older than 4.9, updated copyright date (2020), and more minor changes.
 
 = 1.2 =

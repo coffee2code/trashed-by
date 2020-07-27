@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Trashed By
- * Version:     1.3
+ * Version:     1.3.1
  * Plugin URI:  https://coffee2code.com/wp-plugins/trashed-by/
  * Author:      Scott Reilly
  * Author URI:  https://coffee2code.com/
@@ -18,7 +18,7 @@
  *
  * @package Trashed_By
  * @author  Scott Reilly
- * @version 1.3
+ * @version 1.3.1
  */
 
 /*
@@ -97,7 +97,7 @@ class c2c_TrashedBy {
 	 * @since 1.0
 	 */
 	public static function version() {
-		return '1.3';
+		return '1.3.1';
 	}
 
 	/**
