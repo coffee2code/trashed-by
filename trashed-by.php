@@ -88,8 +88,12 @@ class c2c_TrashedBy {
 	 * Prevents unserializing an instance.
 	 *
 	 * @since 1.3
+	 * @since 1.4 Changed method visibility from private to public and throw exception if invoked.
 	 */
-	public function __wakeup() {}
+	public function __wakeup() {
+		/* translators: %s: Name of plugin class. */
+		throw new Error( sprintf( __( '%s cannot be unserialized.', 'trashed-by' ), __CLASS__ ) );
+	}
 
 	/**
 	 * Returns version of the plugin.

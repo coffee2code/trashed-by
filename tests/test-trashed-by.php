@@ -128,6 +128,22 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * @expectedException Error
+	 */
+	public function test_unable_to_instantiation_object_from_class() {
+		new c2c_TrashedBy;
+	}
+
+	/**
+	 * @expectedException Error
+	 */
+	public function test_unable_to_unserialize_an_instance_of_the_class() {
+		$data = 'O:13:"c2c_TrashedBy":0:{}';
+
+		unserialize( $data );
+	}
+
+	/**
 	 * @dataProvider get_default_hooks
 	 */
 	public function test_default_hooks( $hook_type, $hook, $function, $priority ) {
