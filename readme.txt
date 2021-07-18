@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
 Tested up to: 5.7
-Stable tag: 1.3.1
+Stable tag: 1.4
 
 Records which user trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
 
@@ -69,7 +69,35 @@ Yes.
 
 == Changelog ==
 
-## 1.3.1 _(2020-07-27)_
+= 1.4 (2021-07-18) =
+Highlights:
+
+This minor release reimplements how the plugin hooks into WordPress to handle when a post is trashed or untrashed, restructures unit test files, notes compatibility through WP 5.7, and more.
+
+Details:
+
+* Change: Separately hook filters directly related to a post being trashed or untrashed rather than checking during any post status transition
+    * New: Add `trash_post()` to react when a post is trashed
+    * New: Add `untrash_post()` to react when a post is untrashed
+    * Delete: Remove `transition_post_status()`
+* Fix: Change `__wakeup()` method visibility from `private` to `public` to avoid warnings under PHP8
+* Change: Throw an error if class is instantiated or unserialized
+* Change: Improve some function and parameter inline documentation
+* Change: Note compatibility through WP 5.7+
+* Change: Update copyright date (2021)
+* Unit tests:
+    * Change: Restructure unit test directories and files within `tests/` top-level directory
+        * Change: Move `bin/` into `tests/`
+        * Change: Move `tests/bootstrap.php` into `tests/phpunit/`
+        * Change: In bootstrap, store path to plugin file constant so its value can be used within that file and in test file
+        * Change: In bootstrap, check for test installation in more places and exit with error message if not found
+        * Change: Move `tests/*.php` into `tests/phpunit/tests/`
+        * Change: Remove 'test-' prefix from unit test files
+        * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
+* Change: Remove "A screenshot of" prefix from caption
+* New: Add a few more possible TODO items
+
+= 1.3.1 (2020-07-27) =
 * Change: Note compatibility through WP 5.4+
 * Change: Update links to coffee2code.com to be HTTPS
 * Change: Fix typo in docs
@@ -108,18 +136,13 @@ Yes.
 * Change: Split paragraph in README.md's "Support" section into two
 * Change: Update copyright date (2020)
 
-= 1.2 (2018-03-05) =
-* Change: (Hardening) Escape attribute before being output within markup
-* Change: Initialize plugin on 'plugins_loaded' action instead of on load
-* Change: Merge `do_init()` into `init()`
-* Change: Note compatibility through WP 5.1+
-* Change: Update copyright date (2019)
-* Change: Update License URI to be HTTPS
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/trashed-by/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 1.4 =
+Minor update: Reimplemented how plugin hooks into WordPress to handle a post being trashed or untrashed, restructured unit test files, noted compatibility through WP 5.7, updated copyright date (2021), and more minor changes.
 
 = 1.3.1 =
 Trivial update: Updated a few URLs to be HTTPS and noted compatibility through WP 5.4+.

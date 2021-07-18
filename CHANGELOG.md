@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 1.4 _(2021-07-18)_
+
+### Highlights:
+
+This minor release reimplements how the plugin hooks into WordPress to handle when a post is trashed or untrashed, restructures unit test files, notes compatibility through WP 5.7, and more minor changes.
+
+### Details:
+
 * Change: Separately hook filters directly related to a post being trashed or untrashed rather than checking during any post status transition
     * New: Add `trash_post()` to react when a post is trashed
     * New: Add `untrash_post()` to react when a post is untrashed
