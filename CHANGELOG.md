@@ -5,6 +5,15 @@
 * Change: Throw an error if class is instantiated or unserialized
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
+* Unit tests:
+    * Change: Restructure unit test directories and files within `tests/` top-level directory
+        * Change: Move `bin/` into `tests/`
+        * Change: Move `tests/bootstrap.php` into `tests/phpunit/`
+        * Change: In bootstrap, store path to plugin file constant so its value can be used within that file and in test file
+        * Change: In bootstrap, check for test installation in more places and exit with error message if not found
+        * Change: Move `tests/*.php` into `tests/phpunit/tests/`
+        * Change: Remove 'test-' prefix from unit test files
+        * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
 * Change: Remove "A screenshot of" prefix from caption
 
 ## 1.3.1 _(2020-07-27)_
