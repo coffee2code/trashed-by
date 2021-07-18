@@ -20,6 +20,7 @@
         * Change: Remove 'test-' prefix from unit test files
         * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
 * Change: Remove "A screenshot of" prefix from caption
+* New: Add a few more possible TODO items
 
 ## 1.3.1 _(2020-07-27)_
 * Change: Note compatibility through WP 5.4+
