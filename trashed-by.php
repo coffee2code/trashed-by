@@ -89,7 +89,7 @@ class c2c_TrashedBy {
 	 *
 	 * @since 1.3
 	 */
-	private function __wakeup() {}
+	public function __wakeup() {}
 
 	/**
 	 * Returns version of the plugin.
