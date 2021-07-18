@@ -41,7 +41,8 @@ class Trashed_By_Test extends WP_UnitTestCase {
 			array( 'filter', 'manage_posts_columns',       'add_post_column',        10 ),
 			array( 'action', 'manage_posts_custom_column', 'handle_column_data',     10 ),
 			array( 'action', 'load-edit.php',              'add_admin_css',          10 ),
-			array( 'action', 'transition_post_status',     'transition_post_status', 10 ),
+			array( 'action', 'trashed_post',               'trash_post',             10 ),
+			array( 'action', 'untrashed_post',             'untrash_post',           10 ),
 			array( 'filter', 'is_protected_meta',          'is_protected_meta',      10 ),
 			array( 'action', 'init',                       'register_meta',          10 ),
 		);
@@ -221,7 +222,8 @@ class Trashed_By_Test extends WP_UnitTestCase {
 
 	public function test_blank_is_returned_if_metas_not_present() {
 		$author_id = $this->create_user( false );
-		$post_id   = $this->factory->post->create( array( 'post_status' => 'trash', 'post_author' => $author_id ) );
+		$post_id   = $this->factory->post->create( array( 'post_status' => 'publish', 'post_author' => $author_id ) );
+		wp_trash_post( $post_id );
 		$user_id   = $this->create_user();
 
 		$this->assertEmpty( c2c_TrashedBy::get_trashed_by( $post_id ) );
@@ -524,7 +526,8 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_get_trashed_on_for_trashed_post_without_meta() {
-		$post_id  = $this->factory->post->create( array( 'post_status' => 'trash' ) );
+		$post_id  = $this->factory->post->create( array( 'post_status' => 'publish' ) );
+		wp_trash_post( $post_id );
 		$date = current_time( 'mysql' );
 
 		$this->assertNotEmpty( c2c_TrashedBy::get_trashed_on( $post_id ) );
@@ -586,45 +589,72 @@ class Trashed_By_Test extends WP_UnitTestCase {
 	}
 
 	/*
-	 * c2c_TrashedBy::transition_post_status()
+	 * c2c_TrashedBy::trash_post()
 	 */
 
-	public function test_transition_post_status_ignore_transitions_not_involving_trash() {
-		$post = $this->factory->post->create_and_get( array( 'post_status' => 'publish' ) );
+	public function test_trash_post_not_invoked_during_publish() {
+		$post = $this->factory->post->create_and_get( array( 'post_status' => 'draft' ) );
 
-		c2c_TrashedBy::transition_post_status( 'publish', 'draft', $post );
-
-		$this->assertFalse( metadata_exists( 'post', $post->ID, self::$meta_key_user ) );
-		$this->assertFalse( metadata_exists( 'post', $post->ID, self::$meta_key_date ) );
-	}
-
-	public function test_transition_post_status_deletes_meta_when_post_is_untrashed() {
-		$post    = $this->factory->post->create_and_get( array( 'post_status' => 'trash' ) );
-		$user_id = $this->create_user( false, array( 'display_name' => 'Matt Smith', 'role' => 'author' ) );
-		$date    = '2020-03-01 12:13:14';
-
-		// Set the custom field, as if it had been set on a previous publish
-		$this->set_trashed_by( $post->ID, $user_id, $date );
-
-		c2c_TrashedBy::transition_post_status( 'draft', 'trash', $post );
+		wp_publish_post( $post );
 
 		$this->assertFalse( metadata_exists( 'post', $post->ID, self::$meta_key_user ) );
 		$this->assertFalse( metadata_exists( 'post', $post->ID, self::$meta_key_date ) );
 	}
 
-	public function test_transition_post_status_adds_meta_when_post_is_trashed() {
-		$post    = $this->factory->post->create_and_get( array( 'post_status' => 'publish' ) );
+	public function test_trash_post_adds_meta() {
+		$post_id = $this->factory->post->create( array( 'post_status' => 'publish' ) );
 		$user_id = $this->create_user();
 
-		c2c_TrashedBy::transition_post_status( 'trash', 'publish', $post );
+		c2c_TrashedBy::trash_post( $post_id );
 		$date = current_time( 'mysql' );
 
-		$this->assertTrue( metadata_exists( 'post', $post->ID, self::$meta_key_user ) );
-		$this->assertEquals( $user_id, get_post_meta( $post->ID, self::$meta_key_user, true ) );
-		$this->assertTrue( metadata_exists( 'post', $post->ID, self::$meta_key_date ) );
+		$this->assertTrue( metadata_exists( 'post', $post_id, self::$meta_key_user ) );
+		$this->assertEquals( $user_id, get_post_meta( $post_id, self::$meta_key_user, true ) );
+		$this->assertTrue( metadata_exists( 'post', $post_id, self::$meta_key_date ) );
 		// Note: The expected date may actually differ from the actual date by a
 		// second, so this assertion may actual fail on occasion.
-		$this->assertEquals( $date, get_post_meta( $post->ID, self::$meta_key_date, true ) );
+		$this->assertEquals( $date, get_post_meta( $post_id, self::$meta_key_date, true ) );
+
+		return $post_id;
+	}
+
+	public function test_trash_post_adds_meta_during_wp_trash_post() {
+		$post_id = $this->factory->post->create( array( 'post_status' => 'publish' ) );
+		$user_id = $this->create_user();
+
+		wp_trash_post( $post_id );
+		$date = current_time( 'mysql' );
+
+		$this->assertTrue( metadata_exists( 'post', $post_id, self::$meta_key_user ) );
+		$this->assertEquals( $user_id, get_post_meta( $post_id, self::$meta_key_user, true ) );
+		$this->assertTrue( metadata_exists( 'post', $post_id, self::$meta_key_date ) );
+		// Note: The expected date may actually differ from the actual date by a
+		// second, so this assertion may actual fail on occasion.
+		$this->assertEquals( $date, get_post_meta( $post_id, self::$meta_key_date, true ) );
+
+		return $post_id;
+	}
+
+	/*
+	 * c2c_TrashedBy::untrash_post()
+	 */
+
+	public function test_untrash_post_deletes_meta() {
+		$post_id = $this->test_trash_post_adds_meta();
+
+		c2c_TrashedBy::untrash_post( $post_id );
+
+		$this->assertFalse( metadata_exists( 'post', $post_id, self::$meta_key_user ) );
+		$this->assertFalse( metadata_exists( 'post', $post_id, self::$meta_key_date ) );
+	}
+
+	public function test_untrash_post_deletes_meta_during_wp_untrash_post() {
+		$post_id = $this->test_trash_post_adds_meta_during_wp_trash_post();
+
+		wp_untrash_post( $post_id );
+
+		$this->assertFalse( metadata_exists( 'post', $post_id, self::$meta_key_user ) );
+		$this->assertFalse( metadata_exists( 'post', $post_id, self::$meta_key_date ) );
 	}
 
 	/*

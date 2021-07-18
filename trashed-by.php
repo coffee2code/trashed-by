@@ -118,7 +118,9 @@ class c2c_TrashedBy {
 		add_action( 'manage_posts_custom_column',  array( __CLASS__, 'handle_column_data' ),     10, 2 );
 
 		add_action( 'load-edit.php',               array( __CLASS__, 'add_admin_css' )                 );
-		add_action( 'transition_post_status',      array( __CLASS__, 'transition_post_status' ), 10, 3 );
+
+		add_action( 'trashed_post',                array( __CLASS__, 'trash_post' ) );
+		add_action( 'untrashed_post',              array( __CLASS__, 'untrash_post' ) );
 
 		add_action( 'init',                        array( __CLASS__, 'register_meta' )                 );
 		add_filter( 'is_protected_meta',           array( __CLASS__, 'is_protected_meta' ),      10, 2 );
@@ -307,31 +309,29 @@ class c2c_TrashedBy {
 	/**
 	 * Records the date a post was trashed and the user who trashed the post.
 	 *
-	 * @since 1.0
+	 * @since 1.4
 	 *
-	 * @param string  $new_status New post status.
-	 * @param string  $old_status Old post status.
-	 * @param WP_Post $post       Post object.
+	 * @param int $post_id Post ID.
 	 */
-	public static function transition_post_status( $new_status, $old_status, $post ) {
-		// Only concerned with posts changing post status
-		if ( $new_status === $old_status ) {
-			return;
+	public static function trash_post( $post_id ) {
+		// Can only save trashing user ID if one can be obtained
+		if ( $current_user_id = get_current_user_id() ) {
+			update_post_meta( $post_id, self::$meta_key_user, $current_user_id );
 		}
+		update_post_meta( $post_id, self::$meta_key_date, current_time( 'mysql' ) );
+	}
 
-		// Save user and date for post being trashed
-		if ( 'trash' === $new_status ) {
-			// Can only save trashing user ID if one can be obtained
-			if ( $current_user_id = get_current_user_id() ) {
-				update_post_meta( $post->ID, self::$meta_key_user, $current_user_id );
-			}
-			update_post_meta( $post->ID, self::$meta_key_date, current_time( 'mysql' ) );
-
-		// Clear trashing user and date when being untrashed
-		} elseif ( 'trash' === $old_status ) {
-			delete_post_meta( $post->ID, self::$meta_key_user );
-			delete_post_meta( $post->ID, self::$meta_key_date );
-		}
+	/**
+	 * Clears the date a post was trashed and the user who trashed the post when
+	 * a post is untrashed.
+	 *
+	 * @since 1.4
+	 *
+	 * @param int $post_id Post ID.
+	 */
+	public static function untrash_post( $post_id ) {
+		delete_post_meta( $post_id, self::$meta_key_user );
+		delete_post_meta( $post_id, self::$meta_key_date );
 	}
 
 	/**

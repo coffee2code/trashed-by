@@ -1,6 +1,10 @@
 # Changelog
 
 ## _(in-progress)_
+* Change: Separately hook filters directly related to a post being trashed or untrashed rather than checking during any post status transition
+    * New: Add `trash_post()` to react when a post is trashed
+    * New: Add `untrash_post()` to react when a post is untrashed
+    * Delete: Remove `transition_post_status()`
 * Fix: Change `__wakeup()` method visibility from `private` to `public` to avoid warnings under PHP8
 * Change: Throw an error if class is instantiated or unserialized
 * Change: Improve some function and parameter inline documentation
