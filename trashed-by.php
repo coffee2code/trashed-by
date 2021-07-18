@@ -10,7 +10,7 @@
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Description: Records which user trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
  *
- * Compatible with WordPress 4.9 through 5.4+.
+ * Compatible with WordPress 4.9 through 5.7+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.

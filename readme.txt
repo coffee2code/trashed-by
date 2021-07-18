@@ -5,7 +5,7 @@ Tags: trash, deleted, post, audit, tracking, coffee2code
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
-Tested up to: 5.4
+Tested up to: 5.7
 Stable tag: 1.3.1
 
 Records which user trashed a post and when they trashed it. Displays that info as columns in admin trashed posts listings.
