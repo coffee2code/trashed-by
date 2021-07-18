@@ -29,7 +29,7 @@ Links: [Plugin Homepage](https://coffee2code.com/wp-plugins/trashed-by/) | [Plug
 
 == Screenshots ==
 
-1. A screenshot of the admin post trash listing showing the added "Trashed By" and "Trashed On" columns.
+1. The admin post trash listing showing the added "Trashed By" and "Trashed On" columns.
 
 
 == Frequently Asked Questions ==

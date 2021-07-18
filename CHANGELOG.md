@@ -3,6 +3,7 @@
 ## _(in-progress)_
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
+* Change: Remove "A screenshot of" prefix from caption
 
 ## 1.3.1 _(2020-07-27)_
 * Change: Note compatibility through WP 5.4+
