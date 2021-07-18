@@ -309,8 +309,9 @@ class c2c_TrashedBy {
 	 *
 	 * @since 1.0
 	 *
-	 * @param string  $new_status New post status
-	 * @param string  $old_status Old post status
+	 * @param string  $new_status New post status.
+	 * @param string  $old_status Old post status.
+	 * @param WP_Post $post       Post object.
 	 */
 	public static function transition_post_status( $new_status, $old_status, $post ) {
 		// Only concerned with posts changing post status
@@ -344,7 +345,8 @@ class c2c_TrashedBy {
 	 * @since 1.0
 	 * @since 1.3 Renamed from `get_trasher_id()`
 	 *
-	 * @param  int|WP_Post|null $post Post ID, object, or null for current post.
+	 * @param  int|WP_Post|null $post Optional. Post ID, object, or null for
+	 *                                current post. Default null.
 	 * @return int The ID of the user who trashed the post.
 	 */
 	public static function get_trashed_by( $post = null ) {
@@ -365,7 +367,8 @@ class c2c_TrashedBy {
 	 * @since 1.0
 	 * @deprecated 1.3 Use get_trashed_by() instead
 	 *
-	 * @param  int|WP_Post|null $post Post ID, object, or null for current post.
+	 * @param  int|WP_Post|null $post Optional. Post ID, object, or null for
+	 *                                current post. Default null.
 	 * @return int The ID of the user who trashed the post.
 	 */
 	public static function get_trasher_id( $post = null ) {
@@ -384,7 +387,8 @@ class c2c_TrashedBy {
 	 *
 	 * @since 1.0
 	 *
-	 * @param  int|WP_Post|null $post Post ID, object, or null for current post.
+	 * @param  int|WP_Post|null $post Optional. Post ID, object, or null for
+	 *                                current post. Default null.
 	 * @return string The datetime string for when the post was trashed.
 	 */
 	public static function get_trashed_on( $post = null ) {

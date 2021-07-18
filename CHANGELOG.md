@@ -3,6 +3,7 @@
 ## _(in-progress)_
 * Fix: Change `__wakeup()` method visibility from `private` to `public` to avoid warnings under PHP8
 * Change: Throw an error if class is instantiated or unserialized
+* Change: Improve some function and parameter inline documentation
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
 * Unit tests:
